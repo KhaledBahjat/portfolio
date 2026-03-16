@@ -62,9 +62,12 @@ export default function Navbar({ settings }: { settings: Settings | null }) {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold text-text-secondary hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-widest"
+              className="relative text-sm font-semibold text-text-secondary hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-widest group px-1 py-2"
             >
-              {link.name}
+              <motion.span whileHover={{ y: -2 }} className="inline-block">
+                {link.name}
+              </motion.span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300" />
             </Link>
           ))}
           
@@ -72,15 +75,17 @@ export default function Navbar({ settings }: { settings: Settings | null }) {
           
           <div className="flex items-center gap-3">
             {/* Language Switcher */}
-            <Button
-              variant="glass"
-              size="sm"
-              onClick={toggleLanguage}
-              className="gap-2 group"
-            >
-              <FiGlobe size={14} className="text-blue-600 dark:text-blue-400 group-hover:rotate-12 transition-transform" />
-              <span>{language === 'en' ? 'العربية' : 'EN'}</span>
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="glass"
+                size="sm"
+                onClick={toggleLanguage}
+                className="gap-2 group transition-all duration-300 hover:border-blue-500/50"
+              >
+                <FiGlobe size={14} className="text-blue-600 dark:text-blue-400 group-hover:rotate-12 transition-transform" />
+                <span>{language === 'en' ? 'العربية' : 'EN'}</span>
+              </Button>
+            </motion.div>
 
             {/* Theme Toggle */}
             <ThemeToggle />

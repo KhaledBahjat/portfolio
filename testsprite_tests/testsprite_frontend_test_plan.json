@@ -1,0 +1,1712 @@
+[
+  {
+    "id": "TC001",
+    "title": "Home page shows developer name and introduction on initial load",
+    "description": "Verifies the public home page renders key hero/introduction content for visitors.",
+    "category": "Public Home / Portfolio Viewing",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Developer name\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Introduction/about text\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Skills section\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Projects section\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Contact form\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Skills section displays a list of skills with icons",
+    "description": "Verifies that the Skills section contains visible skill items and their icons.",
+    "category": "Public Home / Portfolio Viewing",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Skills section\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Skills section\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Skill item\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Skill icon\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Another skill item\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Projects section shows project cards and clicking opens a project destination",
+    "description": "Verifies that project cards are visible and clicking a card navigates to a project destination (detail page or external site).",
+    "category": "Public Home / Portfolio Viewing",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Projects section\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Project card\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Project card\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"http\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"\""
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Contact form required-field validation appears when submitting empty form",
+    "description": "Verifies the contact form blocks submission and shows validation messages for required fields when empty.",
+    "category": "Public Home / Portfolio Viewing",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Contact form\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Send Message\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Send Message\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Name is required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email is required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Message is required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Contact form shows email format validation for invalid email input",
+    "description": "Verifies the contact form displays an email validation error when an invalid email is entered.",
+    "category": "Public Home / Portfolio Viewing",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Contact form\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test User\" into \"Name\" field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"not-an-email\" into \"Email\" field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Hello\" into \"Message\" field"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Send Message\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Invalid email\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Projects section remains usable after scrolling through multiple sections",
+    "description": "Verifies the page content remains visible and consistent after scrolling between sections (basic rendering stability).",
+    "category": "Public Home / Portfolio Viewing",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Skills section\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Skill item\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Projects section\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Project card\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Contact form\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Send Message\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Submit contact form successfully with valid inputs",
+    "description": "Verifies a visitor can send a message from the public contact form and sees a success confirmation.",
+    "category": "Contact Form (Public)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Jane Visitor\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"jane.visitor@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Hello! I’d like to discuss a project opportunity.\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send Message\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success message is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Required validation: submitting with all fields empty shows name required error",
+    "description": "Verifies clicking Send Message with empty inputs triggers required validation for the name field.",
+    "category": "Contact Form (Public)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send Message\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error for the name field is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Email format validation: invalid email shows invalid format error",
+    "description": "Verifies the form rejects an incorrectly formatted email address and shows an email format error.",
+    "category": "Contact Form (Public)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Jane Visitor\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"jane.visitor@invalid\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Testing invalid email validation.\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send Message\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an invalid email format error message is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Required validation: missing message shows required error",
+    "description": "Verifies the form prevents sending when message is empty and shows a required validation error for message.",
+    "category": "Contact Form (Public)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Jane Visitor\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"jane.visitor@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send Message\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error for the message field is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Required validation: missing email shows required error",
+    "description": "Verifies the form prevents sending when email is empty and shows a required validation error for email.",
+    "category": "Contact Form (Public)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Jane Visitor\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"This is a message without an email address.\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send Message\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error for the email field is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "User feedback: success message is not shown when validation fails",
+    "description": "Verifies that after a validation failure, the UI does not incorrectly show a success state.",
+    "category": "Contact Form (Public)",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send Message\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success message is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Create a new skill category successfully",
+    "description": "Verifies an admin can add a new skill category and see it appear in the categories list.",
+    "category": "Skill Categories Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Categories\" in the admin navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/categories\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Category\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Automation Category A\" into the category name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"code\" into the icon name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Category created by end-to-end test\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Click the submit button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Automation Category A\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Category name is required validation when creating a category",
+    "description": "Verifies the form shows a validation error when category name is omitted during creation.",
+    "category": "Skill Categories Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Categories\" in the admin navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/categories\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Category\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"code\" into the icon name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Missing name should fail\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Click the submit button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Category name\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Create a new skill with category and optional details",
+    "description": "Verifies an admin can add a new skill and see it appear in the skills list.",
+    "category": "Skills Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skills\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/skills"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Add Skill\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"E2E Skill A\" into the skill name field"
+      },
+      {
+        "type": "action",
+        "description": "Select the first available option from the category dropdown"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Optional details for E2E Skill A\" into the details field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"E2E Skill A\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Validate required skill name when adding a skill",
+    "description": "Verifies the add-skill form shows a validation error when the skill name is empty.",
+    "category": "Skills Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skills\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/skills"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Add Skill\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Edit an existing skill and verify updates are shown",
+    "description": "Verifies an admin can edit a skill and the updated values are reflected in the list.",
+    "category": "Skills Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skills\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/skills"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Edit\" button for the first skill in the list"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Updated Skill Name\" into the skill name field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Updated Skill Name\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Delete a skill and confirm it is removed from the list",
+    "description": "Verifies an admin can delete a skill and it no longer appears in the skills list.",
+    "category": "Skills Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skills\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/skills"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Delete\" button for the first skill in the list"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Confirm\" button in the confirmation dialog"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"deleted\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Show an error message when skill deletion fails",
+    "description": "Verifies the UI displays an error message if a deletion attempt fails.",
+    "category": "Skills Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skills\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/skills"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Delete\" button for a skill that indicates it cannot be deleted"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Confirm\" button in the confirmation dialog"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"error\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Cancel delete confirmation keeps the skill in the list",
+    "description": "Verifies canceling the delete confirmation does not remove the skill.",
+    "category": "Skills Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skills\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/skills"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the skills list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Skills list\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Delete\" button for the first skill in the list"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Cancel\" button in the confirmation dialog"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Skills list\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Create a skill without optional details",
+    "description": "Verifies a skill can be created when optional details are left blank.",
+    "category": "Skills Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Skills\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/skills"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Add Skill\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"E2E Skill No Details\" into the skill name field"
+      },
+      {
+        "type": "action",
+        "description": "Select the first available option from the category dropdown"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"E2E Skill No Details\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Add a new project with title, description, link, and technology tags",
+    "description": "Verifies an authenticated admin can create a new project and see it appear in the projects list.",
+    "category": "Projects Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\" in the admin navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/projects\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Project\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Add Project\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"E2E Test Project\" into the project title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"This is an automated test project description.\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example.com/project\" into the project link or repository URL field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"React\" into the technology tags input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Supabase\" into the technology tags input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"E2E Test Project\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Validation: cannot add a project with an empty title",
+    "description": "Verifies the title field is required when creating a new project and a visible validation message is shown.",
+    "category": "Projects Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\" in the admin navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/projects\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Project\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Add Project\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Missing title should fail.\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example.com/invalid\" into the project link or repository URL field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Title\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Edit an existing project and verify changes are saved",
+    "description": "Verifies an admin can edit an existing project and see the updated values reflected in the list.",
+    "category": "Projects Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\" in the admin navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/projects\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Edit\" button for a visible project in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Edit Project\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Updated Project Title\" into the project title field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Updated Project Title\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC025",
+    "title": "Delete a project and confirm it is removed from the list",
+    "description": "Verifies an admin can delete a project via the confirmation step and it no longer appears in the projects list.",
+    "category": "Projects Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\" in the admin navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/projects\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Delete\" button for a visible project in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Confirm\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Confirm\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Deleted\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC026",
+    "title": "Create a new experience entry and verify it appears in the list",
+    "description": "Verifies an admin can add a new experience entry and it becomes visible in the experience list.",
+    "category": "Experience Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\" in the admin navigation menu"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Experience\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Add Experience\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC027",
+    "title": "Submit new experience with required fields filled and confirm it is listed",
+    "description": "Verifies the add experience form accepts valid input and results in a visible new list item.",
+    "category": "Experience Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\" in the admin navigation menu"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Experience\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test Company A\" into the company name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Senior Developer\" into the role/title field"
+      }
+    ]
+  },
+  {
+    "id": "TC028",
+    "title": "Complete remaining fields and create experience successfully",
+    "description": "Verifies dates and description can be provided and submission results in a visible entry.",
+    "category": "Experience Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\" in the admin navigation menu"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Experience\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2022-01\" into the start date field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"2024-12\" into the end date field"
+      }
+    ]
+  },
+  {
+    "id": "TC029",
+    "title": "Add experience description and verify new item appears in list",
+    "description": "Verifies submitting the add experience form shows the new item in the experience list view.",
+    "category": "Experience Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\" in the admin navigation menu"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Experience\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Built and maintained key features for the portfolio admin.\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC030",
+    "title": "Validate required field error when role/title is empty",
+    "description": "Verifies the form blocks submission and shows a required-field validation message when role/title is missing.",
+    "category": "Experience Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\" in the admin navigation menu"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Experience\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test Company Missing Role\" into the company name field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC031",
+    "title": "Verify validation message is shown for missing role/title",
+    "description": "Verifies a visible validation error appears when submitting without a required role/title value.",
+    "category": "Experience Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\" in the admin navigation menu"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Experience\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Role\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC032",
+    "title": "Update site title and social links successfully",
+    "description": "Verifies an authenticated admin can update site title and social links and sees a success confirmation.",
+    "category": "Settings Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" or \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/settings\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"My Portfolio Site\" into the site title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://github.com/example\" into the GitHub link field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://www.linkedin.com/in/example\" into the LinkedIn link field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" or \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Saved\" or \"Success\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC033",
+    "title": "Required field validation shown when site title is blank",
+    "description": "Verifies client-side validation prevents saving when a required field is empty and shows an error message.",
+    "category": "Settings Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" or \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/settings\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"\" into the site title field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" or \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" or \"cannot be blank\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC034",
+    "title": "Validation shown for invalid social link format (if URL validation exists)",
+    "description": "Verifies the form shows a validation error when a social link is in an invalid format.",
+    "category": "Settings Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" or \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/settings\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"not-a-url\" into a social link field (for example GitHub or LinkedIn)"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" or \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"invalid\" or \"must be a valid URL\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC035",
+    "title": "Successful save persists after page reload",
+    "description": "Verifies saved settings persist by reloading the page and confirming the updated values are still displayed.",
+    "category": "Settings Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" or \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/settings\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Portfolio Title Persist Test\" into the site title field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" or \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Saved\" or \"Success\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /admin/settings"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Portfolio Title Persist Test\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC036",
+    "title": "Server error message is shown when save fails",
+    "description": "Verifies the UI displays a server error message when the save operation fails.",
+    "category": "Settings Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" or \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/settings\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Server Error Scenario Title\" into the site title field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" or \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Error\" or \"Failed\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC037",
+    "title": "Save button shows loading/disabled state during submission (if present)",
+    "description": "Verifies the submission state is visible during save to prevent duplicate submissions.",
+    "category": "Settings Management",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" or \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/settings\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Loading State Title\" into the site title field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" or \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Saving\" or \"Submitting\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC038",
+    "title": "Settings page renders expected sections and fields",
+    "description": "Verifies the settings form loads and key inputs are visible for editing general site configuration.",
+    "category": "Settings Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" or \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin/settings\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Settings\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Site title\" field is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Save\" or \"Submit\" button is visible"
+      }
+    ]
+  }
+]

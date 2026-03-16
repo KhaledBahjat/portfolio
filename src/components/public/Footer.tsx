@@ -38,24 +38,40 @@ export default function Footer({ settings }: FooterProps) {
 
           <div className={`flex items-center gap-6 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
             {socialLinks.github && (
-              <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass border border-surface-border text-text-secondary hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/50 transition-all shadow-glow-hover">
+              <motion.a 
+                whileHover={{ y: -5, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href={socialLinks.github} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass border border-surface-border text-text-secondary hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/50 transition-all shadow-glow-hover"
+              >
                 <FiGithub size={20} />
-              </a>
+              </motion.a>
             )}
             {socialLinks.linkedin && (
-              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass border border-surface-border text-[#0077b5] dark:text-[#00a0dc] hover:border-[#0077b5]/50 transition-all shadow-glow-hover">
+              <motion.a 
+                whileHover={{ y: -5, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass border border-surface-border text-[#0077b5] dark:text-[#00a0dc] hover:border-[#0077b5]/50 transition-all shadow-glow-hover"
+              >
                 <FiLinkedin size={20} />
-              </a>
+              </motion.a>
             )}
             {socialLinks.codeforces && (
-              <a href={socialLinks.codeforces} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass border border-surface-border text-[#ff3333] hover:border-[#ff3333]/50 transition-all shadow-glow-hover">
+              <motion.a 
+                whileHover={{ y: -5, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href={socialLinks.codeforces} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass border border-surface-border text-[#ff3333] hover:border-[#ff3333]/50 transition-all shadow-glow-hover"
+              >
                 <SiCodeforces size={20} />
-              </a>
+              </motion.a>
             )}
             {socialLinks.email && (
-              <a href={`mailto:${socialLinks.email}`} className="p-3 rounded-xl glass border border-surface-border text-blue-600 dark:text-blue-400 hover:border-blue-500/50 transition-all shadow-glow-hover">
+              <motion.a 
+                whileHover={{ y: -5, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href={`mailto:${socialLinks.email}`} className="p-3 rounded-xl glass border border-surface-border text-blue-600 dark:text-blue-400 hover:border-blue-500/50 transition-all shadow-glow-hover"
+              >
                 <FiMail size={20} />
-              </a>
+              </motion.a>
             )}
           </div>
         </div>

@@ -1,0 +1,16 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "portfolio",
+    "projectPath": "f:\\portfolio",
+    "testIds": [],
+    "additionalInstruction": "Test all identified forms in the application, including Contact.tsx and the admin dashboard forms (login, categories, skills, etc.). Ensure validation and submission flows are tested.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-kp79XHGjtoz3itaBT6A1vZpLX0wMVUpQUhimsi65ipaWF2uTzVuMQBuo4AbGAC6Sr_BO2PziXKt4pKmFBiHYTv9CjtM2aMdmzZ-WLRwxs0vlgZ-hRJmKVrrjui2IOXoze9w"
+    }
+  }
+}

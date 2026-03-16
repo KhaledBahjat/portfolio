@@ -70,18 +70,31 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-brand-600 dark:text-brand-400 font-mono text-sm uppercase tracking-widest">// 02. skills</span>
-          <h2 className="text-4xl font-bold mt-2 text-text-primary">
+          <span className="text-brand-600 dark:text-brand-400 font-mono text-sm uppercase tracking-widest block mb-4">// 02. skills</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 text-text-primary tracking-tight">
             {t('skills.title')} <span className="gradient-text">{t('skills.subtitle')}</span>
           </h2>
-          <p className="text-text-secondary mt-3 max-w-xl mx-auto">
+          <p className="text-text-secondary mt-4 max-w-xl mx-auto text-lg leading-relaxed">
             {t('skills.description')}
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { 
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid md:grid-cols-2 xl:grid-cols-3 gap-6"
+        >
           {isLoading ? (
             [1, 2, 3].map((n) => (
               <div key={n} className="glass rounded-2xl p-6 animate-shimmer">
@@ -111,10 +124,12 @@ export default function Skills() {
                 return (
                   <motion.div
                     key={cat.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: catIdx * 0.1 }}
-                    className="glass rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 group"
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                    }}
+                    whileHover={{ y: -5, borderColor: colors.badge.split('text-')[0].replace('bg-', '') + '40' }}
+                    className="glass rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 group border border-surface-border"
                   >
                     <div className={`inline-flex items-center gap-2 text-xs font-bold px-3 py-1 rounded-full border mb-5 ${colors.badge}`}>
                       {cat.icon && <span>{cat.icon}</span>}
@@ -133,8 +148,9 @@ export default function Skills() {
                           <div className="h-1.5 bg-surface-border rounded-full overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
-                              animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
-                              transition={{ duration: 1, delay: catIdx * 0.1 + i * 0.1, ease: 'easeOut' }}
+                              whileInView={{ width: `${skill.level}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: 'easeOut' }}
                               className={`h-full rounded-full bg-gradient-to-r ${colors.bar}`}
                             />
                           </div>
@@ -188,7 +204,7 @@ export default function Skills() {
               })}
             </>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

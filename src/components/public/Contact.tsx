@@ -114,24 +114,26 @@ export default function Contact({ settings }: ContactProps) {
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Info Cards */}
             <div className="lg:col-span-2 space-y-6">
-              {contactInfo.map((info, i) =>                  <motion.a
+              {contactInfo.map((info, i) => (
+                  <motion.a
                     key={info.label}
                     href={info.href}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="glass p-6 rounded-2xl border border-surface-border flex items-center gap-4 hover:border-blue-500/50 transition-all group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 hover:-translate-y-1"
+                    whileHover={{ y: -5, borderColor: 'rgba(59, 130, 246, 0.4)' }}
+                    className="glass p-6 rounded-2xl border border-surface-border flex items-center gap-4 hover:border-blue-500/50 transition-all group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 cursor-pointer"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-surface-dark flex items-center justify-center text-xl group-hover:scale-110 transition-transform shadow-sm">
+                    <div className="w-12 h-12 rounded-xl bg-surface-dark flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300 shadow-sm">
                       {info.icon}
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted font-mono uppercase tracking-widest font-bold mb-0.5">{info.label}</p>
-                      <p className="text-text-primary font-bold">{info.value}</p>
+                      <p className="text-xs text-text-muted font-mono uppercase tracking-widest font-bold mb-0.5 group-hover:text-blue-500 transition-colors">{info.label}</p>
+                      <p className="text-text-primary font-bold group-hover:scale-105 origin-left transition-transform">{info.value}</p>
                     </div>
                   </motion.a>
-              )}
+              ))}
             </div>
 
             {/* Form */}

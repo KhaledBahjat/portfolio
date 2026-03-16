@@ -15,6 +15,8 @@ const menuItems = [
   { label: 'Skills', href: '/admin/skills', icon: FiAward },
   { label: 'Skill Categories', href: '/admin/categories', icon: FiLayers },
   { label: 'Experience', href: '/admin/experience', icon: FiBriefcase },
+  { label: 'Certificates', href: '/admin/certificates', icon: FiAward },
+  { label: 'Feedback', href: '/admin/feedback', icon: FiMail },
   { label: 'Messages', href: '/admin/messages', icon: FiMail },
   { label: 'Settings', href: '/admin/settings', icon: FiSettings },
 ];

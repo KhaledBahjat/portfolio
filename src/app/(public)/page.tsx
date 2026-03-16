@@ -6,6 +6,8 @@ import About from '@/components/public/About';
 import Skills from '@/components/public/Skills';
 import Projects from '@/components/public/Projects';
 import Services from '@/components/public/Services';
+import Certificates from '@/components/public/Certificates';
+import Feedback from '@/components/public/Feedback';
 import Experience from '@/components/public/Experience';
 import Contact from '@/components/public/Contact';
 import Navbar from '@/components/public/Navbar';
@@ -56,7 +58,9 @@ export default function PortfolioPage() {
         <Skills />
         <Projects />
         <Services />
+        <Certificates />
         <Experience />
+        <Feedback />
         <Contact settings={settings} />
       </main>
 

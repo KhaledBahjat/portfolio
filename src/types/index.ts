@@ -89,3 +89,21 @@ export interface ServiceItem {
   tech: string[];
   orderIndex: number;
 }
+
+export interface Certificate {
+  id?: string;
+  name: string;
+  image: string;
+  courseName: string;
+  instructorName: string;
+  platform: string;
+  createdAt?: string;
+}
+
+export interface Feedback {
+  id?: string;
+  image: string;
+  name: string;
+  role?: string;
+  createdAt?: string;
+}

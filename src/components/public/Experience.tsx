@@ -67,7 +67,20 @@ export default function ExperienceSection() {
           </h2>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto relative">
+        <motion.div 
+          ref={ref} 
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { 
+              opacity: 1,
+              transition: { staggerChildren: 0.12 }
+            }
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="max-w-3xl mx-auto relative"
+        >
           {/* Vertical line */}
           <div className={`absolute ${language === 'en' ? 'left-6' : 'right-6'} top-0 bottom-0 w-[2px] bg-gradient-to-b from-blue-500/50 via-violet-500/50 to-transparent`} />
 
@@ -87,24 +100,30 @@ export default function ExperienceSection() {
               items.map((item, i) => (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: language === 'en' ? -30 : 30 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: i * 0.12 }}
-                  className={`relative ${language === 'en' ? 'pl-16' : 'pr-16'}`}
+                  variants={{
+                    hidden: { opacity: 0, x: language === 'en' ? -30 : 30 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
+                  }}
+                  className={`relative ${language === 'en' ? 'pl-16' : 'pr-16'} group`}
                 >
                   {/* Dot */}
-                  <div className={`absolute ${language === 'en' ? 'left-4' : 'right-4'} top-6 w-4 h-4 rounded-full border-2 flex items-center justify-center ${language === 'en' ? '-translate-x-1/2' : 'translate-x-1/2'} ${
+                  <motion.div 
+                    whileHover={{ scale: 1.5 }}
+                    className={`absolute ${language === 'en' ? 'left-4' : 'right-4'} top-6 w-4 h-4 rounded-full border-2 flex items-center justify-center ${language === 'en' ? '-translate-x-1/2' : 'translate-x-1/2'} transition-colors duration-300 z-10 bg-surface-dark ${
                     item.type === 'work'
-                      ? 'border-blue-500 bg-blue-500/10 dark:bg-blue-500/20'
-                      : 'border-violet-500 bg-violet-500/10 dark:bg-violet-500/20'
+                      ? 'border-blue-500 group-hover:border-blue-400'
+                      : 'border-violet-500 group-hover:border-violet-400'
                   }`}>
-                    <div className={`w-2 h-2 rounded-full ${item.type === 'work' ? 'bg-blue-600 dark:bg-blue-400' : 'bg-violet-600 dark:bg-violet-400'}`} />
-                  </div>
+                    <div className={`w-2 h-2 rounded-full transition-all duration-300 ${item.type === 'work' ? 'bg-blue-600 dark:bg-blue-400 group-hover:scale-110' : 'bg-violet-600 dark:bg-violet-400 group-hover:scale-110'}`} />
+                  </motion.div>
 
-                  <div className="glass rounded-2xl p-6 hover:-translate-y-1 transition-transform duration-300">
+                  <motion.div 
+                    whileHover={{ x: language === 'en' ? 10 : -10, y: -2 }}
+                    className="glass rounded-2xl p-6 hover:border-blue-500/30 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.03)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 group-hover:bg-brand-500/[0.01]"
+                  >
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-3">
                       <div className={language === 'ar' ? 'text-right w-full sm:w-auto' : ''}>
-                        <h3 className="text-lg font-bold text-text-primary tracking-tight">{item.title}</h3>
+                        <h3 className="text-lg font-bold text-text-primary tracking-tight transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">{item.title}</h3>
                         <p className={`text-sm font-bold tracking-wide ${item.type === 'work' ? 'text-blue-700 dark:text-blue-400' : 'text-violet-700 dark:text-violet-400'}`}>
                           {item.organization}
                         </p>
@@ -120,13 +139,13 @@ export default function ExperienceSection() {
                         </span>
                       </div>
                     </div>
-                    <p className={`text-text-secondary text-sm leading-relaxed ${language === 'ar' ? 'text-right' : ''}`}>{item.description}</p>
-                  </div>
+                    <p className={`text-text-secondary text-sm leading-relaxed ${language === 'ar' ? 'text-right' : ''} font-medium`}>{item.description}</p>
+                  </motion.div>
                 </motion.div>
               ))
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

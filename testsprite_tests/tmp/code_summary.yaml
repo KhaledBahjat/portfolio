@@ -1,0 +1,73 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Next.js
+  - Tailwind CSS
+  - Supabase
+  - React Hook Form
+  - Zod
+routes:
+  - path: /
+    file: src/app/page.tsx
+    auth_required: false
+    description: Public home page
+  - path: /admin/login
+    file: src/app/admin/login/page.tsx
+    auth_required: false
+    description: Admin login page
+  - path: /admin/categories
+    file: src/app/admin/categories/page.tsx
+    auth_required: true
+    description: Skill categories management
+  - path: /admin/skills
+    file: src/app/admin/skills/page.tsx
+    auth_required: true
+    description: Skills management
+  - path: /admin/experience
+    file: src/app/admin/experience/page.tsx
+    auth_required: true
+    description: Experience management
+  - path: /admin/settings
+    file: src/app/admin/settings/page.tsx
+    auth_required: true
+    description: General settings management
+  - path: /admin/projects
+    file: src/app/admin/projects/page.tsx
+    auth_required: true
+    description: Projects management
+features:
+  - name: Admin Login
+    description: Secure login for administrative access
+    files:
+      - src/app/admin/login/page.tsx
+    entry_route: /admin/login
+    user_interactions:
+      - Fill email input
+      - Fill password input
+      - Click Sign In button
+    auth_required: false
+  - name: Skill Categories Management
+    description: Create, update, and delete skill categories
+    files:
+      - src/app/admin/categories/page.tsx
+    entry_route: /admin/categories
+    user_interactions:
+      - Fill category name
+      - Fill icon name
+      - Fill description
+      - Click submit button
+    auth_required: true
+  - name: Contact Form
+    description: Public contact form for site visitors
+    files:
+      - src/components/public/Contact.tsx
+    entry_route: /
+    user_interactions:
+      - Fill name
+      - Fill email
+      - Fill subject
+      - Fill message
+      - Click Send Message button
+    auth_required: false
+known_limitations: []

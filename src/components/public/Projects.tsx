@@ -182,16 +182,30 @@ export default function Projects() {
         </motion.div>
 
         {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { 
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {loading
             ? Array.from({ length: 3 }).map((_, i) => <ProjectSkeleton key={i} />)
             : filtered.map((project, i) => (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="glass rounded-2xl overflow-hidden hover:-translate-y-2 transition-all duration-300 group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5"
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.95, y: 30 },
+                    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5 } }
+                  }}
+                  whileHover={{ y: -8, borderColor: 'rgba(59, 130, 246, 0.4)' }}
+                  className="glass rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300 group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 border border-surface-border"
                 >
                   {/* Image */}
                   <div className="relative h-48 bg-gradient-to-br from-blue-900/50 to-violet-900/50 overflow-hidden">
@@ -254,7 +268,7 @@ export default function Projects() {
                   </div>
                 </motion.div>
               ))}
-        </div>
+        </motion.div>
 
         {filtered.length === 0 && !loading && (
           <div className="text-center py-16 text-text-secondary">

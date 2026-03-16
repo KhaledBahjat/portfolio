@@ -27,18 +27,23 @@ function Counter({ value, label, icon }: { value: number; label: string; icon: R
   }, [value, isInView]);
 
   return (
-    <div ref={ref} className="flex items-center gap-5">
-      <div className="w-12 h-12 rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-surface-border flex items-center justify-center text-xl transition-transform hover:scale-110 duration-300">
+    <motion.div 
+      ref={ref} 
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.3 }}
+      className="flex items-center gap-5 cursor-default group"
+    >
+      <div className="w-12 h-12 rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-surface-border flex items-center justify-center text-xl transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white group-hover:border-transparent group-hover:shadow-lg group-hover:shadow-brand-500/20">
         {icon}
       </div>
       <div>
         <div className="flex items-baseline gap-0.5">
           <span className="text-2xl font-bold text-text-primary">{displayValue}</span>
-          <span className="text-brand-500 font-bold">+</span>
+          <span className="text-brand-500 font-bold group-hover:scale-125 transition-transform duration-300">+</span>
         </div>
-        <p className="text-xs text-text-muted font-mono uppercase tracking-widest font-bold">{label}</p>
+        <p className="text-xs text-text-muted font-mono uppercase tracking-widest font-bold group-hover:text-brand-500 transition-colors duration-300">{label}</p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -86,17 +91,32 @@ export default function About({ settings }: AboutProps) {
         </motion.div>
 
         {/* Bento Grid */}
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-6 gap-6">
+        <motion.div 
+          ref={ref} 
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { 
+              opacity: 1,
+              transition: { staggerChildren: 0.15 }
+            }
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-1 md:grid-cols-6 gap-6"
+        >
 
           {/* Main Bio Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="md:col-span-4 glass p-8 md:p-10 rounded-[2.5rem] border border-surface-border relative overflow-hidden group shadow-xl dark:shadow-none"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+            }}
+            whileHover={{ y: -5, borderColor: 'rgba(59, 130, 246, 0.4)' }}
+            className="md:col-span-4 glass p-8 md:p-10 rounded-[2.5rem] border border-surface-border relative overflow-hidden group shadow-xl dark:shadow-none transition-colors duration-300"
           >
-            {/* Decorative Icon - Using a negative z-index to stay behind text */}
-            <div className="absolute -bottom-12 -right-12 text-[15rem] text-text-muted/[0.03] dark:text-text-muted/[0.02] -rotate-12 group-hover:rotate-0 transition-transform duration-1000 z-[-1] pointer-events-none select-none">
+            {/* Decorative Icon */}
+            <div className="absolute -bottom-12 -right-12 text-[15rem] text-text-muted/[0.03] dark:text-text-muted/[0.02] -rotate-12 group-hover:rotate-0 group-hover:scale-110 transition-transform duration-1000 z-[-1] pointer-events-none select-none">
               <FiCpu />
             </div>
 
@@ -140,10 +160,12 @@ export default function About({ settings }: AboutProps) {
 
           {/* Stats Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="md:col-span-2 glass p-8 rounded-[2.5rem] border border-surface-border flex flex-col justify-between shadow-xl dark:shadow-none bg-brand-500/[0.02] dark:bg-brand-500/[0.02]"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+            }}
+            whileHover={{ y: -5, borderColor: 'rgba(139, 92, 246, 0.4)' }}
+            className="md:col-span-2 glass p-8 rounded-[2.5rem] border border-surface-border flex flex-col justify-between shadow-xl dark:shadow-none bg-brand-500/[0.02] dark:bg-brand-500/[0.02] transition-colors duration-300"
           >
             <div className="space-y-8">
               <Counter
@@ -201,7 +223,7 @@ export default function About({ settings }: AboutProps) {
             </p>
           </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );
