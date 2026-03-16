@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Admin check
+    function isAdmin() {
+      return request.auth != null && 
+        (request.auth.token.email == 'khaledbahjat0@gmail.com' || request.auth.token.admin == true);
+    }
+
+    // Public read for all files
+    match /{allPaths=**} {
+      allow read: if true;
+    }
+
+    // Projects: Admin write
+    match /projects/{projectId}/{allPaths=**} {
+      allow write: if isAdmin();
+    }
+
+    // Profile: Admin write
+    match /profile/{allPaths=**} {
+      allow write: if isAdmin();
+    }
+  }
+}

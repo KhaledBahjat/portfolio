@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Admin email check (should be updated to match .env NEXT_PUBLIC_ADMIN_EMAIL)
+    // IMPORTANT: Ensure this email is verified in Firebase Console
+    function isAdmin() {
+      return request.auth != null && 
+        (request.auth.token.email == 'khaledbahjat0@gmail.com' || request.auth.token.admin == true);
+    }
+
+    // Projects: Public read, Admin write
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Skills: Public read, Admin write
+    match /skills/{skillId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Experience: Public read, Admin write
+    match /experience/{expId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Settings: Public read, Public write (TEMPORARY FOR DEBUGGING)
+    match /settings/{docId} {
+      allow read, write: if true;
+    }
+
+    // Messages: Public create, Admin read/delete/update
+    match /messages/{messageId} {
+      allow read, delete, update: if isAdmin();
+      allow create: if true;
+    }
+  }
+}
