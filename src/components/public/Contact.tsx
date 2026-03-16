@@ -41,6 +41,11 @@ export default function Contact({ settings }: ContactProps) {
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+    },
   });
 
   // Load from local storage on mount
@@ -59,7 +64,12 @@ export default function Contact({ settings }: ContactProps) {
   // Save to local storage on change
   useEffect(() => {
     const subscription = watch((value) => {
-      localStorage.setItem('contactFormData', JSON.stringify(value));
+      const hasValue = value.name || value.email || value.message;
+      if (hasValue) {
+        localStorage.setItem('contactFormData', JSON.stringify(value));
+      } else {
+        localStorage.removeItem('contactFormData');
+      }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
@@ -70,8 +80,13 @@ export default function Contact({ settings }: ContactProps) {
       await submitMessage(data);
       setIsSuccess(true);
       toast.success(t('contact.form.success'));
+      
+      // Clear form immediately
+      reset({ name: '', email: '', message: '' });
+      
+      // Clear local storage
       localStorage.removeItem('contactFormData');
-      reset();
+      
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (error) {
       toast.error(language === 'en' ? 'Failed to send message. Please try again.' : 'فشل إرسال الرسالة. يرجى المحاولة مرة أخرى.');
