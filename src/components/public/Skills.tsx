@@ -57,7 +57,7 @@ export default function Skills() {
 
   // Sort categories by orderIndex if they exist in the categories list
   const sortedCategories = [...categories].sort((a, b) => a.orderIndex - b.orderIndex);
-  
+
   // Also include categories that have skills but aren't in the official list
   const extraCategoryNames = Object.keys(groupedSkills).filter(
     name => !categories.some(c => c.name === name)
@@ -82,10 +82,10 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           variants={{
             hidden: { opacity: 0 },
-            visible: { 
+            visible: {
               opacity: 1,
               transition: { staggerChildren: 0.1 }
             }
@@ -118,9 +118,9 @@ export default function Skills() {
               {sortedCategories.map((cat, catIdx) => {
                 const catSkills = groupedSkills[cat.name] || [];
                 if (catSkills.length === 0) return null;
-                
+
                 const colors = colorMap[cat.name.toLowerCase()] || defaultColors;
-                
+
                 return (
                   <motion.div
                     key={cat.id}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,10 +37,32 @@ export default function Contact({ settings }: ContactProps) {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
+
+  // Load from local storage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('contactFormData');
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData);
+        reset(parsed);
+      } catch (error) {
+        console.error('Failed to parse saved contact form data:', error);
+      }
+    }
+  }, [reset]);
+
+  // Save to local storage on change
+  useEffect(() => {
+    const subscription = watch((value) => {
+      localStorage.setItem('contactFormData', JSON.stringify(value));
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -48,6 +70,7 @@ export default function Contact({ settings }: ContactProps) {
       await submitMessage(data);
       setIsSuccess(true);
       toast.success(t('contact.form.success'));
+      localStorage.removeItem('contactFormData');
       reset();
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (error) {

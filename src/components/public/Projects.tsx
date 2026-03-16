@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiSearch, FiX } from 'react-icons/fi';
+import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import { getProjects } from '@/services/projectService';
 import { Project } from '@/types';
 import { useLanguage } from '@/context/LanguageContext';
@@ -81,13 +81,11 @@ const demoProjects: Project[] = [
 ];
 
 export default function Projects() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [activeFilter, setActiveFilter] = useState('All');
 
   useEffect(() => {
     getProjects()
@@ -95,29 +93,6 @@ export default function Projects() {
       .catch(() => setProjects(demoProjects))
       .finally(() => setLoading(false));
   }, []);
-
-  const allTechs = ['All', ...Array.from(new Set(projects.flatMap((p) => p.techStack)))];
-
-  const filtered = projects.filter((p) => {
-    const matchSearch =
-      p.title.toLowerCase().includes(search.toLowerCase()) ||
-      p.description.toLowerCase().includes(search.toLowerCase());
-    const matchFilter = activeFilter === 'All' || p.techStack.some(t => t.toLowerCase() === activeFilter.toLowerCase());
-    return matchSearch && matchFilter;
-  });
-
-  const toggleTechFilter = (tech: string) => {
-    if (activeFilter.toLowerCase() === tech.toLowerCase()) {
-      setActiveFilter('All');
-    } else {
-      setActiveFilter(tech);
-      // Scroll to projects section if needed
-      const element = document.getElementById('projects');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
 
   return (
     <section id="projects" className="py-24" ref={ref}>
@@ -137,50 +112,6 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* Search + filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="flex flex-col sm:flex-row gap-4 mb-8"
-        >
-          <div className="relative flex-1">
-            <FiSearch className={`absolute ${language === 'en' ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-text-secondary`} size={16} />
-            <input
-              type="text"
-              placeholder={t('projects.search_placeholder')}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className={`w-full ${language === 'en' ? 'pl-10 pr-4' : 'pr-10 pl-4'} py-2.5 rounded-xl bg-surface-card border border-surface-border text-text-primary placeholder-text-secondary/50 focus:outline-none focus:border-blue-500/50 transition-all text-sm`}
-            />
-            {search && (
-              <button 
-                onClick={() => setSearch('')} 
-                className={`absolute ${language === 'en' ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary`}
-              >
-                <FiX size={14} />
-              </button>
-            )}
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            {allTechs.slice(0, 8).map((tech) => (
-              <motion.button
-                key={tech}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveFilter(tech)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all shadow-sm ${
-                  activeFilter === tech
-                    ? 'bg-brand-600 border-brand-600 text-white shadow-glow'
-                    : 'bg-surface-card/50 dark:bg-transparent border-surface-border text-text-secondary hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400'
-                }`}
-              >
-                {tech === 'All' ? t('projects.all') : tech}
-              </motion.button>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Grid */}
         <motion.div 
           variants={{
@@ -197,7 +128,7 @@ export default function Projects() {
         >
           {loading
             ? Array.from({ length: 3 }).map((_, i) => <ProjectSkeleton key={i} />)
-            : filtered.map((project, i) => (
+            : projects.map((project, i) => (
                 <motion.div
                   key={project.id}
                   variants={{
@@ -247,22 +178,12 @@ export default function Projects() {
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {project.techStack.map((tech) => (
-                        <motion.button
+                        <span
                           key={tech}
-                          whileHover={{ scale: 1.05, y: -2 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleTechFilter(tech);
-                          }}
-                          className={`text-[10px] px-2.5 py-1 rounded-lg border bg-gradient-to-br font-bold transition-all shadow-sm flex items-center gap-1.5 ${getTechColor(tech)} ${
-                            activeFilter.toLowerCase() === tech.toLowerCase()
-                              ? 'ring-2 ring-blue-500 ring-offset-2 ring-offset-transparent'
-                              : 'hover:shadow-glow-blue/20'
-                          }`}
+                          className={`text-[10px] px-2.5 py-1 rounded-lg border bg-gradient-to-br font-bold shadow-sm flex items-center gap-1.5 ${getTechColor(tech)}`}
                         >
                           {tech}
-                        </motion.button>
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -270,7 +191,7 @@ export default function Projects() {
               ))}
         </motion.div>
 
-        {filtered.length === 0 && !loading && (
+        {projects.length === 0 && !loading && (
           <div className="text-center py-16 text-text-secondary">
             {t('projects.no_results')}
           </div>
