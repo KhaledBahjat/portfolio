@@ -12,6 +12,7 @@ import Navbar from '@/components/public/Navbar';
 import Footer from '@/components/public/Footer';
 import ScrollToTop from '@/components/public/ScrollToTop';
 import { getSettings } from '@/services/settingsService';
+import { incrementVisitorCount } from '@/services/visitorService';
 import { Settings } from '@/types';
 
 export default function PortfolioPage() {
@@ -26,7 +27,23 @@ export default function PortfolioPage() {
         console.error('Failed to load settings', error);
       }
     }
+    async function handleVisitor() {
+      try {
+        const lastVisit = localStorage.getItem('last_visit');
+        const now = new Date().getTime();
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        if (!lastVisit || now - parseInt(lastVisit) > oneDay) {
+          await incrementVisitorCount();
+          localStorage.setItem('last_visit', now.toString());
+        }
+      } catch (error) {
+        console.error('Failed to update visitor count', error);
+      }
+    }
+
     loadSettings();
+    handleVisitor();
   }, []);
 
   return (

@@ -47,7 +47,7 @@ export default function About({ settings }: AboutProps) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
   const isLoading = !settings;
-  
+
   const items = [
     {
       icon: <FiTarget size={24} />,
@@ -77,17 +77,17 @@ export default function About({ settings }: AboutProps) {
 
       <div className="container mx-auto px-6">
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12"
         >
           <h2 className="text-sm font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-4">{t('nav.about')}</h2>
         </motion.div>
 
         {/* Bento Grid */}
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-6 gap-6">
-          
+
           {/* Main Bio Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -95,6 +95,11 @@ export default function About({ settings }: AboutProps) {
             transition={{ duration: 0.6 }}
             className="md:col-span-4 glass p-8 md:p-10 rounded-[2.5rem] border border-surface-border relative overflow-hidden group shadow-xl dark:shadow-none"
           >
+            {/* Decorative Icon - Using a negative z-index to stay behind text */}
+            <div className="absolute -bottom-12 -right-12 text-[15rem] text-text-muted/[0.03] dark:text-text-muted/[0.02] -rotate-12 group-hover:rotate-0 transition-transform duration-1000 z-[-1] pointer-events-none select-none">
+              <FiCpu />
+            </div>
+
             <div className="relative z-10 h-full flex flex-col justify-center">
               <h3 className="text-3xl md:text-5xl font-bold text-text-primary mb-6 leading-tight">
                 {isLoading ? (
@@ -131,11 +136,6 @@ export default function About({ settings }: AboutProps) {
                 )}
               </div>
             </div>
-
-            {/* Decorative Icon */}
-            <div className="absolute -bottom-6 -right-6 text-[12rem] text-brand-500/[0.03] dark:text-brand-500/[0.05] -rotate-12 group-hover:rotate-0 transition-transform duration-700">
-              <FiCpu />
-            </div>
           </motion.div>
 
           {/* Stats Card */}
@@ -146,20 +146,20 @@ export default function About({ settings }: AboutProps) {
             className="md:col-span-2 glass p-8 rounded-[2.5rem] border border-surface-border flex flex-col justify-between shadow-xl dark:shadow-none bg-brand-500/[0.02] dark:bg-brand-500/[0.02]"
           >
             <div className="space-y-8">
-              <Counter 
-                value={settings?.experienceYears || 0} 
-                label={t('about.stats.experience')} 
-                icon={<FiAward className="text-blue-500" />} 
+              <Counter
+                value={settings?.experienceYears || 0}
+                label={t('about.stats.experience')}
+                icon={<FiAward className="text-blue-500" />}
               />
-              <Counter 
-                value={settings?.projectsCompleted || 0} 
-                label={t('about.stats.projects')} 
-                icon={<FiCpu className="text-violet-500" />} 
+              <Counter
+                value={settings?.projectsCompleted || 0}
+                label={t('about.stats.projects')}
+                icon={<FiCpu className="text-violet-500" />}
               />
-              <Counter 
-                value={settings?.technologiesCount || 0} 
-                label={t('about.stats.technologies')} 
-                icon={<FiZap className="text-emerald-500" />} 
+              <Counter
+                value={settings?.technologiesCount || 0}
+                label={t('about.stats.technologies')}
+                icon={<FiZap className="text-emerald-500" />}
               />
             </div>
           </motion.div>
@@ -173,11 +173,10 @@ export default function About({ settings }: AboutProps) {
               transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               className={`md:col-span-2 glass p-8 rounded-[2rem] border border-surface-border group hover:border-brand-500/30 transition-all duration-500 shadow-xl dark:shadow-none hover:shadow-2xl dark:hover:shadow-brand-500/5 hover:-translate-y-2`}
             >
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 mb-6 transition-all duration-500 ${
-                item.color === 'blue' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white shadow-blue-500/10' :
-                item.color === 'violet' ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 group-hover:bg-violet-600 group-hover:text-white shadow-violet-500/10' :
-                'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white shadow-emerald-500/10'
-              }`}>
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 mb-6 transition-all duration-500 ${item.color === 'blue' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white shadow-blue-500/10' :
+                  item.color === 'violet' ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 group-hover:bg-violet-600 group-hover:text-white shadow-violet-500/10' :
+                    'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white shadow-emerald-500/10'
+                }`}>
                 {item.icon}
               </div>
               <div>
@@ -186,7 +185,7 @@ export default function About({ settings }: AboutProps) {
               </div>
             </motion.div>
           ))}
-          
+
           {/* Coffee/Misc Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

@@ -14,7 +14,7 @@ export const translations = {
       view_projects: 'View Projects',
       contact_me: 'Contact Me',
       mobile_dev: 'Mobile Dev',
-      flutter_expert: 'Flutter Expert',
+      flutter_expert: 'Fresh Flutter Dev',
     },
     about: {
       title: 'About Me',
@@ -140,7 +140,7 @@ export const translations = {
       view_projects: 'عرض المشاريع',
       contact_me: 'تواصل معي',
       mobile_dev: 'مطور تطبيقات',
-      flutter_expert: 'خبير فلاتر',
+      flutter_expert: 'مطور فلاتر صاعد',
     },
     about: {
       title: 'من أنا',

@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiGrid, FiAward, FiMail, FiBarChart2, FiArrowUpRight, FiClock, FiSettings } from 'react-icons/fi';
+import { FiGrid, FiAward, FiMail, FiBarChart2, FiArrowUpRight, FiClock, FiSettings, FiUsers } from 'react-icons/fi';
 import { getProjects } from '@/services/projectService';
 import { getSkills } from '@/services/skillService';
 import { getMessages } from '@/services/messageService';
 import { Project, Skill, Message } from '@/types';
+import { getVisitorCount } from '@/services/visitorService';
 import { formatRelative } from '@/utils/helpers';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
@@ -17,6 +18,7 @@ export default function AdminDashboard() {
     skills: 0,
     messages: 0,
     unread: 0,
+    visitors: 0,
   });
   const [recentMessages, setRecentMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,10 +26,11 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function loadStats() {
       try {
-        const [projData, skillData, msgData] = await Promise.all([
+        const [projData, skillData, msgData, visitorData] = await Promise.all([
           getProjects(),
           getSkills(),
           getMessages(),
+          getVisitorCount(),
         ]);
         
         setStats({
@@ -35,6 +38,7 @@ export default function AdminDashboard() {
           skills: skillData.length,
           messages: msgData.length,
           unread: msgData.filter(m => !m.read).length,
+          visitors: visitorData,
         });
         
         setRecentMessages(msgData.slice(0, 5));
@@ -53,12 +57,13 @@ export default function AdminDashboard() {
     { label: 'Total Skills', value: stats.skills, icon: FiAward, color: 'violet' },
     { label: 'Messages', value: stats.messages, icon: FiMail, color: 'emerald' },
     { label: 'Unread', value: stats.unread, icon: FiBarChart2, color: 'amber' },
+    { label: 'Total Visitors', value: stats.visitors, icon: FiUsers, iconLib: 'fi', color: 'blue' },
   ];
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-pulse">
-        {[1, 2, 3, 4].map(i => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 animate-pulse">
+        {[1, 2, 3, 4, 5].map(i => (
           <div key={i} className="h-32 glass rounded-2xl" />
         ))}
       </div>
@@ -73,7 +78,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         {statCards.map((card, i) => (
           <motion.div
             key={card.label}

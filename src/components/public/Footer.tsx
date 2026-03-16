@@ -6,6 +6,7 @@ import { SiCodeforces } from 'react-icons/si';
 import { useLanguage } from '@/context/LanguageContext';
 import { Settings } from '@/types';
 import Link from 'next/link';
+import VisitorCounter from './VisitorCounter';
 
 interface FooterProps {
   settings: Settings | null;
@@ -59,13 +60,17 @@ export default function Footer({ settings }: FooterProps) {
           </div>
         </div>
 
-        <div className={`mt-12 pt-8 border-t border-surface-border/30 flex flex-col ${language === 'en' ? 'md:flex-row' : 'md:flex-row-reverse'} justify-between items-center gap-4 text-[10px] text-text-secondary font-mono uppercase tracking-widest opacity-60`}>
-          <p dir="ltr">© {new Date().getFullYear()} {name}. {t('footer.rights')}</p>
-          <div className={`flex gap-6 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
-            <Link href="/admin/login" className="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">{t('footer.admin_login')}</Link>
-            <span className="opacity-30">|</span>
-            <span>{t('footer.built_with')} Next.js & Supabase</span>
+        <div className={`mt-12 pt-8 border-t border-surface-border/30 flex flex-col ${language === 'en' ? 'md:flex-row' : 'md:flex-row-reverse'} justify-between items-center gap-6`}>
+          <div className="flex flex-col md:flex-row items-center gap-6 text-[10px] text-text-secondary font-mono uppercase tracking-widest opacity-60">
+            <p dir="ltr">© {new Date().getFullYear()} {name}. {t('footer.rights')}</p>
+            <div className={`flex items-center gap-6 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+              <Link href="/admin/login" className="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">{t('footer.admin_login')}</Link>
+              <span className="opacity-30">|</span>
+              <span>{t('footer.built_with')} Next.js & Supabase</span>
+            </div>
           </div>
+          
+          <VisitorCounter />
         </div>
       </div>
     </footer>

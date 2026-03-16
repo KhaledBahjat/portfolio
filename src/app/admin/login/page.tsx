@@ -6,7 +6,6 @@ import { supabase } from '@/lib/supabase/supabase';
 import { useAuth } from '@/context/AuthContext';
 import { toast } from 'react-hot-toast';
 import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
-import { FcGoogle } from 'react-icons/fc';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -41,22 +40,6 @@ export default function AdminLogin() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/admin`
-        }
-      });
-      if (error) throw error;
-    } catch (error: any) {
-      console.error('Google login error:', error);
-      toast.error(error.message || 'Failed to login with Google');
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-surface-dark px-4 py-12">
@@ -116,23 +99,6 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          <div className="relative my-8">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-surface-border"></div>
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-[#16162a] px-3 text-slate-500 font-mono">Or continue with</span>
-            </div>
-          </div>
-
-          <button
-            onClick={handleGoogleLogin}
-            disabled={loading}
-            className="w-full py-3 rounded-xl border border-surface-border flex items-center justify-center gap-3 text-slate-300 hover:bg-surface-border/30 transition-all font-semibold"
-          >
-            <FcGoogle size={20} />
-            <span>Google Admin Account</span>
-          </button>
         </div>
 
         <div className="mt-8 text-center">

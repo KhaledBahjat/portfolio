@@ -22,8 +22,8 @@ export default function Contact({ settings }: ContactProps) {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const contactEmail = settings?.socialLinks?.email || 'khaledbahjat0@gmail.com';
-  const contactPhone = settings?.socialLinks?.phone || '+964 770 000 0000';
-  const contactLocation = settings?.socialLinks?.location || (language === 'en' ? 'Kirkuk, Iraq' : 'كركوك، العراق');
+  const contactPhone = settings?.socialLinks?.phone || '+201143481912';
+  const contactLocation = settings?.socialLinks?.location || (language === 'en' ? 'Qena, Egypt' : 'قنا، مصر');
 
   const contactSchema = useMemo(() => z.object({
     name: z.string().min(2, language === 'en' ? 'Name is too short' : 'الاسم قصير جداً'),
