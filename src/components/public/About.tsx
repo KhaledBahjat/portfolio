@@ -110,7 +110,7 @@ export default function About({ settings }: AboutProps) {
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              visible: { opacity: 1, y: [30, -5, 0], transition: { duration: 0.6 } }
             }}
             whileHover={{ y: -5, borderColor: 'rgba(59, 130, 246, 0.4)' }}
             className="md:col-span-4 glass p-8 md:p-10 rounded-[2.5rem] border border-surface-border relative overflow-hidden group shadow-xl dark:shadow-none transition-colors duration-300"
@@ -162,7 +162,7 @@ export default function About({ settings }: AboutProps) {
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              visible: { opacity: 1, y: [30, -5, 0], transition: { duration: 0.6 } }
             }}
             whileHover={{ y: -5, borderColor: 'rgba(139, 92, 246, 0.4)' }}
             className="md:col-span-2 glass p-8 rounded-[2.5rem] border border-surface-border flex flex-col justify-between shadow-xl dark:shadow-none bg-brand-500/[0.02] dark:bg-brand-500/[0.02] transition-colors duration-300"
@@ -191,7 +191,8 @@ export default function About({ settings }: AboutProps) {
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              whileInView={{ opacity: 1, scale: [0.95, 1.02, 1] }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               className={`md:col-span-2 glass p-8 rounded-[2rem] border border-surface-border group hover:border-brand-500/30 transition-all duration-500 shadow-xl dark:shadow-none hover:shadow-2xl dark:hover:shadow-brand-500/5 hover:-translate-y-2`}
             >

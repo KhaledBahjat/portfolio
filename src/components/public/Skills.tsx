@@ -126,7 +126,7 @@ export default function Skills() {
                     key={cat.id}
                     variants={{
                       hidden: { opacity: 0, y: 30 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                      visible: { opacity: 1, y: [30, -5, 0], transition: { duration: 0.6 } }
                     }}
                     whileHover={{ y: -5, borderColor: colors.badge.split('text-')[0].replace('bg-', '') + '40' }}
                     className="glass rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 group border border-surface-border"
@@ -171,8 +171,8 @@ export default function Skills() {
                   <motion.div
                     key={catName}
                     initial={{ opacity: 0, y: 30 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: offset * 0.1 }}
+                    animate={inView ? { opacity: 1, y: [30, -5, 0] } : {}}
+                    transition={{ duration: 0.6, delay: offset * 0.1 }}
                     className="glass rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 group"
                   >
                     <div className={`inline-block text-xs font-bold px-3 py-1 rounded-full border mb-5 ${colors.badge}`}>

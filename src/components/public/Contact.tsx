@@ -157,9 +157,9 @@ export default function Contact({ settings }: ContactProps) {
                     key={info.label}
                     href={info.href}
                     initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    whileInView={{ opacity: 1, x: [-20, 5, 0] }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
+                    transition={{ delay: i * 0.1, duration: 0.5 }}
                     whileHover={{ y: -5, borderColor: 'rgba(59, 130, 246, 0.4)' }}
                     className="glass p-6 rounded-2xl border border-surface-border flex items-center gap-4 hover:border-blue-500/50 transition-all group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 cursor-pointer"
                   >

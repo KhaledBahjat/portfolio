@@ -103,17 +103,17 @@ function ProjectImageSlider({ project }: { project: Project }) {
               {/* Navigation Arrows */}
               <button 
                 onClick={prevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/30 text-white opacity-0 group-hover/slider:opacity-100 hover:bg-black/50 transition-all z-10"
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/50 backdrop-blur-sm text-white opacity-100 md:opacity-0 md:group-hover/slider:opacity-100 hover:bg-black/70 active:scale-95 transition-all z-20 shadow-md"
                 aria-label="Previous image"
               >
-                <FiChevronLeft size={18} />
+                <FiChevronLeft size={24} />
               </button>
               <button 
                 onClick={nextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/30 text-white opacity-0 group-hover/slider:opacity-100 hover:bg-black/50 transition-all z-10"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/50 backdrop-blur-sm text-white opacity-100 md:opacity-0 md:group-hover/slider:opacity-100 hover:bg-black/70 active:scale-95 transition-all z-20 shadow-md"
                 aria-label="Next image"
               >
-                <FiChevronRight size={18} />
+                <FiChevronRight size={24} />
               </button>
 
               {/* Dots */}
@@ -139,18 +139,18 @@ function ProjectImageSlider({ project }: { project: Project }) {
       )}
       
       {/* Overlay & Links */}
-      <div className="absolute inset-0 bg-gradient-to-t from-surface-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-      <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
+      <div className="absolute inset-0 bg-gradient-to-t from-surface-card/80 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity pointer-events-none" />
+      <div className="absolute top-3 right-3 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity z-20">
         {project.githubUrl && (
           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-             className="p-2 glass rounded-lg text-text-primary hover:text-blue-600 dark:hover:text-blue-400 transition-colors pointer-events-auto">
-            <FiGithub size={16} />
+             className="p-2 sm:p-2.5 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 active:scale-95 transition-all pointer-events-auto flex items-center justify-center shadow-md">
+            <FiGithub size={20} />
           </a>
         )}
         {project.demoUrl && (
           <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-             className="p-2 glass rounded-lg text-text-primary hover:text-blue-600 dark:hover:text-blue-400 transition-colors pointer-events-auto">
-            <FiExternalLink size={16} />
+             className="p-2 sm:p-2.5 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 active:scale-95 transition-all pointer-events-auto flex items-center justify-center shadow-md">
+            <FiExternalLink size={20} />
           </a>
         )}
       </div>
@@ -248,7 +248,7 @@ export default function Projects() {
                   key={project.id}
                   variants={{
                     hidden: { opacity: 0, scale: 0.95, y: 30 },
-                    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5 } }
+                    visible: { opacity: 1, scale: 1, y: [30, -5, 0], transition: { duration: 0.6 } }
                   }}
                   whileHover={{ y: -8, borderColor: 'rgba(59, 130, 246, 0.4)' }}
                   className="glass rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300 group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 border border-surface-border"

@@ -102,7 +102,7 @@ export default function ExperienceSection() {
                   key={item.id}
                   variants={{
                     hidden: { opacity: 0, x: language === 'en' ? -30 : 30 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
+                    visible: { opacity: 1, x: [language === 'en' ? -30 : 30, language === 'en' ? 10 : -10, 0], transition: { duration: 0.6 } }
                   }}
                   className={`relative ${language === 'en' ? 'pl-16' : 'pr-16'} group`}
                 >

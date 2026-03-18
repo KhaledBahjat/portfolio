@@ -129,17 +129,29 @@ export default function Hero({ settings }: HeroProps) {
               className="flex items-center justify-center lg:justify-start gap-6 mt-12 text-text-secondary"
             >
               {settings?.socialLinks?.github && (
-                <motion.a whileHover={{ y: -5, color: '#60a5fa' }} href={settings.socialLinks.github} target="_blank" rel="noopener noreferrer" className="transition-colors">
+                <motion.a 
+                  variants={{ hidden: { scale: 0 }, visible: { scale: [0, 1.2, 1], transition: { duration: 0.4 } } }}
+                  whileHover={{ y: -5, color: '#60a5fa' }} 
+                  href={settings.socialLinks.github} target="_blank" rel="noopener noreferrer" className="transition-colors"
+                >
                   <FiGithub size={22} />
                 </motion.a>
               )}
               {settings?.socialLinks?.linkedin && (
-                <motion.a whileHover={{ y: -5, color: '#60a5fa' }} href={settings.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors">
+                <motion.a 
+                  variants={{ hidden: { scale: 0 }, visible: { scale: [0, 1.2, 1], transition: { duration: 0.4 } } }}
+                  whileHover={{ y: -5, color: '#60a5fa' }} 
+                  href={settings.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors"
+                >
                   <FiLinkedin size={22} />
                 </motion.a>
               )}
               {settings?.socialLinks?.email && (
-                <motion.a whileHover={{ y: -5, color: '#60a5fa' }} href={`mailto:${settings.socialLinks.email}`} className="transition-colors">
+                <motion.a 
+                  variants={{ hidden: { scale: 0 }, visible: { scale: [0, 1.2, 1], transition: { duration: 0.4 } } }}
+                  whileHover={{ y: -5, color: '#60a5fa' }} 
+                  href={`mailto:${settings.socialLinks.email}`} className="transition-colors"
+                >
                   <FiMail size={22} />
                 </motion.a>
               )}
@@ -183,11 +195,11 @@ export default function Hero({ settings }: HeroProps) {
               )}
             </motion.div>
 
-            {/* Floating Badges */}
+            {/* Desktop Floating Badges */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-4 -right-4 lg:-top-6 lg:-right-6 glass p-4 rounded-2xl border border-surface-border flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-xl backdrop-blur-xl z-30"
+              className="hidden lg:flex absolute -top-6 -right-6 glass p-4 rounded-2xl border border-surface-border items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-xl backdrop-blur-xl z-30"
             >
               <div className="w-10 h-10 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 flex items-center justify-center text-brand-700 dark:text-brand-400">
                 <FiSmartphone size={20} />
@@ -200,12 +212,41 @@ export default function Hero({ settings }: HeroProps) {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 glass p-4 rounded-2xl border border-surface-border flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-xl backdrop-blur-xl z-30"
+              className="hidden lg:flex absolute -bottom-6 -left-6 glass p-4 rounded-2xl border border-surface-border items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-xl backdrop-blur-xl z-30"
             >
               <div className="w-10 h-10 rounded-xl bg-violet-500/10 dark:bg-violet-500/20 flex items-center justify-center text-violet-700 dark:text-violet-400">
                 <FiCpu size={20} />
               </div>
               <div className="text-xs font-bold text-text-primary">
+                {t('hero.flutter_expert')}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Mobile Badges (Repositioned below image) */}
+          <div className="flex lg:hidden flex-wrap justify-center gap-3 mt-8 w-full z-30 px-2 sm:px-4">
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="glass p-3 rounded-xl border border-surface-border flex items-center gap-2 shadow-sm backdrop-blur-md bg-white/40 dark:bg-black/20 flex-1 justify-center min-w-[130px] max-w-[200px]"
+            >
+              <div className="w-8 h-8 rounded-lg bg-brand-500/10 dark:bg-brand-500/20 flex items-center justify-center text-brand-700 dark:text-brand-400">
+                <FiSmartphone size={16} />
+              </div>
+              <div className="text-xs font-bold text-text-primary whitespace-nowrap">
+                {t('hero.mobile_dev')}
+              </div>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 4, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="glass p-3 rounded-xl border border-surface-border flex items-center gap-2 shadow-sm backdrop-blur-md bg-white/40 dark:bg-black/20 flex-1 justify-center min-w-[130px] max-w-[200px]"
+            >
+              <div className="w-8 h-8 rounded-lg bg-violet-500/10 dark:bg-violet-500/20 flex items-center justify-center text-violet-700 dark:text-violet-400">
+                <FiCpu size={16} />
+              </div>
+              <div className="text-xs font-bold text-text-primary whitespace-nowrap">
                 {t('hero.flutter_expert')}
               </div>
             </motion.div>
