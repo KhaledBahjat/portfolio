@@ -198,7 +198,7 @@ const demoProjects: Project[] = [
 export default function Projects() {
   const { t } = useLanguage();
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' });
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -238,7 +238,7 @@ export default function Projects() {
           }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: false, margin: '-50px' }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {loading

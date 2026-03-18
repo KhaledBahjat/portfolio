@@ -58,7 +58,7 @@ const iconStyleMap: Record<string, string> = {
 export default function Services() {
   const { t, language } = useLanguage();
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' });
 
   return (
     <section id="services" className="py-24 relative overflow-hidden" ref={ref}>

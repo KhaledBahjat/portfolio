@@ -13,7 +13,7 @@ export default function Feedback() {
   const [isLoading, setIsLoading] = useState(true);
   const [direction, setDirection] = useState(0);
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' });
 
   useEffect(() => {
     async function loadData() {

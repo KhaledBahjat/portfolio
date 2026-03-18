@@ -28,7 +28,7 @@ export default function Skills() {
   const [categories, setCategories] = useState<SkillCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' });
 
   useEffect(() => {
     async function loadData() {
@@ -69,7 +69,7 @@ export default function Skills() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -92,7 +92,7 @@ export default function Skills() {
           }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: false, margin: '-50px' }}
           className="grid md:grid-cols-2 xl:grid-cols-3 gap-6"
         >
           {isLoading ? (
@@ -149,7 +149,7 @@ export default function Skills() {
                             <motion.div
                               initial={{ width: 0 }}
                               whileInView={{ width: `${skill.level}%` }}
-                              viewport={{ once: true }}
+                              viewport={{ once: false }}
                               transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: 'easeOut' }}
                               className={`h-full rounded-full bg-gradient-to-r ${colors.bar}`}
                             />

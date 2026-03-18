@@ -13,7 +13,7 @@ interface AboutProps {
 function Counter({ value, label, icon }: { value: number; label: string; icon: React.ReactNode }) {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: false });
 
   useEffect(() => {
     if (isInView) {
@@ -50,7 +50,7 @@ function Counter({ value, label, icon }: { value: number; label: string; icon: R
 export default function About({ settings }: AboutProps) {
   const { t } = useLanguage();
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' });
   const isLoading = !settings;
 
   const items = [
@@ -84,7 +84,7 @@ export default function About({ settings }: AboutProps) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="mb-12"
         >
           <h2 className="text-sm font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-4">{t('nav.about')}</h2>
@@ -102,7 +102,7 @@ export default function About({ settings }: AboutProps) {
           }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: false, margin: '-50px' }}
           className="grid grid-cols-1 md:grid-cols-6 gap-6"
         >
 
@@ -192,7 +192,7 @@ export default function About({ settings }: AboutProps) {
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: [0.95, 1.02, 1] }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               className={`md:col-span-2 glass p-8 rounded-[2rem] border border-surface-border group hover:border-brand-500/30 transition-all duration-500 shadow-xl dark:shadow-none hover:shadow-2xl dark:hover:shadow-brand-500/5 hover:-translate-y-2`}
             >

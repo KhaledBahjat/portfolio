@@ -41,7 +41,7 @@ const demoExperience: Experience[] = [
 export default function ExperienceSection() {
   const { t, language } = useLanguage();
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' });
   const [items, setItems] = useState<Experience[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -78,7 +78,7 @@ export default function ExperienceSection() {
           }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: false, margin: '-50px' }}
           className="max-w-3xl mx-auto relative"
         >
           {/* Vertical line */}

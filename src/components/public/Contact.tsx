@@ -123,7 +123,7 @@ export default function Contact({ settings }: ContactProps) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className="text-center mb-16"
           >
             <h2 className="text-sm font-mono uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-4">{t('contact.title')}</h2>
@@ -158,7 +158,7 @@ export default function Contact({ settings }: ContactProps) {
                     href={info.href}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: [-20, 5, 0] }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ delay: i * 0.1, duration: 0.5 }}
                     whileHover={{ y: -5, borderColor: 'rgba(59, 130, 246, 0.4)' }}
                     className="glass p-6 rounded-2xl border border-surface-border flex items-center gap-4 hover:border-blue-500/50 transition-all group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 cursor-pointer"
@@ -178,7 +178,7 @@ export default function Contact({ settings }: ContactProps) {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="lg:col-span-3 glass p-8 rounded-3xl border border-surface-border relative shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none"
               >
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
