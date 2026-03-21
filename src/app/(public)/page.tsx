@@ -31,13 +31,19 @@ export default function PortfolioPage() {
     }
     async function handleVisitor() {
       try {
-        const lastVisit = localStorage.getItem('last_visit');
-        const now = new Date().getTime();
-        const oneDay = 24 * 60 * 60 * 1000;
+        const deviceId = localStorage.getItem('portfolio_device_id');
 
-        if (!lastVisit || now - parseInt(lastVisit) > oneDay) {
+        if (!deviceId) {
+          // Generate a unique device ID
+          const newDeviceId = typeof crypto !== 'undefined' && crypto.randomUUID 
+            ? crypto.randomUUID() 
+            : `dev_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+          
           await incrementVisitorCount();
-          localStorage.setItem('last_visit', now.toString());
+          localStorage.setItem('portfolio_device_id', newDeviceId);
+          
+          // Optionally clean up the old 'last_visit' if it exists
+          localStorage.removeItem('last_visit');
         }
       } catch (error) {
         console.error('Failed to update visitor count', error);
