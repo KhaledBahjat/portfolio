@@ -8,9 +8,7 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <div className="dvider"></div>
       <Hero />
-      <div className="dvider"></div>
       <Main />
       <div className="dvider"></div>
       <Contact />

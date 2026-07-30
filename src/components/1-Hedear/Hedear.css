@@ -1,0 +1,139 @@
+header {
+    justify-content: space-between;
+    padding: 1.2rem 2.4rem;
+}
+
+header ul {
+    gap: 16px;
+}
+
+header button {
+    font-size: 1.2rem;
+}
+
+header ul li a {
+    color: var(--title);
+    opacity: 0.9;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+header ul li a:hover {
+    opacity: 1;
+    font-size: 0.9rem;
+    color: var(--blue);
+}
+
+header.flex nav {
+    box-shadow: 1px 1px 20px rgb(67, 57, 57);
+    background-color: var(--bgHeader);
+    padding: 0.70rem 1.6rem;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    -moz-border-radius: 55px;
+    -ms-border-radius: 55px;
+    -o-border-radius: 55px;
+}
+
+header button.menu {
+    display: none;
+}
+
+/* Model */
+header .fixed {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(40, 40, 48, 0.91);
+    z-index: 11;
+}
+
+@keyframes mymove {
+    0% {
+        scale: 0;
+    }
+
+    60% {
+        scale: 1.2;
+    }
+
+    100% {
+        scale: 1;
+    }
+}
+
+header .fixed ul.model {
+    animation: mymove 0.77s 1;
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    padding: 1rem 2rem;
+    background-color: var(--secondary);
+    -webkit-animation: mymove 0.77s 1;
+}
+
+header .fixed ul.model li {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+}
+
+header .fixed ul.model li:last-child {
+    border: none;
+}
+
+header .fixed ul.model li a {
+    font-size: 1rem;
+}
+
+header .fixed ul.model li a:hover {
+    padding-left: 5px;
+}
+
+header .fixed ul.model li:first-child {
+    text-align: right;
+}
+header button.mood, header .icon-menu{
+    background-color: var(--bgHeader);
+    height: 2.4rem;
+    width: 2.4rem;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border: 1px solid rgba(244, 165, 96, 0.249);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    color: var(--subtitle);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+header button.mood:hover,
+header button.icon-menu:hover {
+    color: var(--title);
+    border: 1px solid rgba(244, 165, 96);
+    cursor: pointer;
+}
+@media (max-width:700px) {
+    header.flex nav {
+        display: none;
+    }
+
+    header button.menu {
+        display: block;
+    }
+}
