@@ -13,7 +13,7 @@ import { toast } from 'react-hot-toast';
 import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
-import { uploadFile } from '@/lib/supabase/storage';
+import { uploadFile, validateUploadFile } from '@/lib/supabase/storage';
 
 const skillSchema = z.object({
   name: z.string().min(1, 'Name required'),
@@ -34,6 +34,7 @@ export default function SkillsManagement() {
   const [search, setSearch] = useState('');
   const [saving, setSaving] = useState(false);
   const [uploadingIcon, setUploadingIcon] = useState(false);
+  const [selectedIconPreview, setSelectedIconPreview] = useState<string | null>(null);
 
   const {
     register,
@@ -98,14 +99,21 @@ export default function SkillsManagement() {
     if (!file) return;
 
     try {
+      validateUploadFile(file);
+
+      const previewUrl = URL.createObjectURL(file);
+      setSelectedIconPreview(previewUrl);
+
       setUploadingIcon(true);
       const url = await uploadFile('skills/icons', file);
       setValue('icon', url, { shouldValidate: true });
       toast.success('Icon uploaded');
     } catch (error) {
-      toast.error('Icon upload failed');
+      setSelectedIconPreview(null);
+      toast.error(error instanceof Error ? error.message : 'Icon upload failed');
     } finally {
       setUploadingIcon(false);
+      event.target.value = '';
     }
   };
 
@@ -254,17 +262,19 @@ export default function SkillsManagement() {
             <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1.5 ml-1 font-bold">Upload Icon (SVG/PNG)</label>
             <label className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-surface-border px-4 py-3 text-sm text-text-secondary transition hover:border-blue-500/40 hover:text-blue-400">
               <FiUploadCloud />
-              <span>{uploadingIcon ? 'Uploading...' : 'Upload SVG / PNG icon'}</span>
-              <input type="file" accept=".svg,.png,.jpg,.jpeg,.webp,.ico,image/svg+xml,image/png,image/jpeg,image/webp,image/x-icon" className="hidden" onChange={handleIconUpload} />
+              <span>{uploadingIcon ? 'Uploading...' : 'Upload SVG / PNG / JPG / JPEG / WEBP / ICO / AVIF'}</span>
+              <input type="file" accept=".svg,.png,.jpg,.jpeg,.webp,.ico,.avif,image/svg+xml,image/png,image/jpeg,image/webp,image/avif,image/x-icon" className="hidden" onChange={handleIconUpload} />
             </label>
-            {iconValue && (
+            {(selectedIconPreview || iconValue) && (
               <div className="mt-3 flex items-center gap-3 rounded-xl border border-surface-border bg-background-card/60 px-3 py-2 text-sm text-text-secondary">
-                {iconValue.startsWith('http') || iconValue.startsWith('/') || iconValue.startsWith('data:') ? (
+                {selectedIconPreview ? (
+                  <img src={selectedIconPreview} alt="Icon preview" className="h-6 w-6 object-contain" />
+                ) : iconValue.startsWith('http') || iconValue.startsWith('/') || iconValue.startsWith('data:') ? (
                   <img src={iconValue} alt="" className="h-6 w-6 object-contain" />
                 ) : (
                   <span className="text-xl">{iconValue}</span>
                 )}
-                <span className="truncate">{iconValue}</span>
+                <span className="truncate">{iconValue || 'Preview available'}</span>
               </div>
             )}
           </div>
