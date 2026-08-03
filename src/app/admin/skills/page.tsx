@@ -14,6 +14,7 @@ import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import { uploadFile, validateUploadFile } from '@/lib/supabase/storage';
+import SkillIcon from '@/components/ui/SkillIcon';
 
 const skillSchema = z.object({
   name: z.string().min(1, 'Name required'),
@@ -206,7 +207,9 @@ export default function SkillsManagement() {
                     className="glass p-5 rounded-2xl border border-surface-border hover:border-blue-500/30 transition-all group relative"
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-2xl drop-shadow-sm">{skill.icon}</span>
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-background-card/70 p-1.5 shadow-sm">
+                        <SkillIcon icon={skill.icon} className="h-5 w-5" />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-bold text-text-primary truncate">{skill.name}</h3>
                         <p className="text-[10px] text-text-secondary font-mono italic">{skill.category}</p>
@@ -268,11 +271,9 @@ export default function SkillsManagement() {
             {(selectedIconPreview || iconValue) && (
               <div className="mt-3 flex items-center gap-3 rounded-xl border border-surface-border bg-background-card/60 px-3 py-2 text-sm text-text-secondary">
                 {selectedIconPreview ? (
-                  <img src={selectedIconPreview} alt="Icon preview" className="h-6 w-6 object-contain" />
-                ) : iconValue.startsWith('http') || iconValue.startsWith('/') || iconValue.startsWith('data:') ? (
-                  <img src={iconValue} alt="" className="h-6 w-6 object-contain" />
+                  <img src={selectedIconPreview} alt="Icon preview" className="h-6 w-6 object-contain" loading="lazy" />
                 ) : (
-                  <span className="text-xl">{iconValue}</span>
+                  <SkillIcon icon={iconValue} className="h-6 w-6" alt="Icon preview" />
                 )}
                 <span className="truncate">{iconValue || 'Preview available'}</span>
               </div>

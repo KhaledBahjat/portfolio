@@ -6,6 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { getSkills } from '@/services/skillService';
 import { getCategories } from '@/services/categoryService';
 import { Skill } from '@/types';
+import SkillIcon from '@/components/ui/SkillIcon';
 
 const categoryMeta: Record<string, { badge: string; chip: string; glow: string; icon: string }> = {
   Languages: { badge: 'bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400', chip: 'bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400 hover:border-blue-400/50 hover:shadow-[0_0_0_1px_rgba(96,165,250,0.25)]', glow: 'shadow-blue-500/10', icon: '⌘' },
@@ -140,7 +141,7 @@ export default function Skills() {
                         whileHover={{ y: -2, scale: 1.02 }}
                         className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-medium transition-all duration-200 ${colors.chip}`}
                       >
-                        <span className="text-base leading-none">{skill.icon}</span>
+                        <SkillIcon icon={skill.icon} className="h-4 w-4" />
                         <span>{skill.name}</span>
                       </motion.div>
                     ))}
