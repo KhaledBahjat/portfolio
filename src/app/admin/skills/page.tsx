@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
-import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiLayers } from 'react-icons/fi';
+import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiLayers, FiUploadCloud } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -13,13 +13,12 @@ import { toast } from 'react-hot-toast';
 import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
-import Badge from '@/components/ui/Badge';
+import { uploadFile } from '@/lib/supabase/storage';
 
 const skillSchema = z.object({
   name: z.string().min(1, 'Name required'),
   category: z.string().min(1, 'Category required'),
   icon: z.string().min(1, 'Icon emoji or class required'),
-  level: z.number().min(0).max(100),
 });
 
 type SkillFormData = z.infer<typeof skillSchema>;
@@ -34,6 +33,7 @@ export default function SkillsManagement() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [saving, setSaving] = useState(false);
+  const [uploadingIcon, setUploadingIcon] = useState(false);
 
   const {
     register,
@@ -44,9 +44,14 @@ export default function SkillsManagement() {
     formState: { errors },
   } = useForm<SkillFormData>({
     resolver: zodResolver(skillSchema),
+    defaultValues: {
+      name: '',
+      category: categories.length > 0 ? categories[0].name : '',
+      icon: '🚀',
+    },
   });
 
-  const levelValue = watch('level') || 0;
+  const iconValue = watch('icon') || '';
 
   useEffect(() => {
     loadData();
@@ -70,11 +75,10 @@ export default function SkillsManagement() {
 
   const handleOpenAdd = () => {
     setEditingSkill(null);
-    reset({ 
-      name: '', 
-      category: categories.length > 0 ? categories[0].name : '', 
-      icon: '🚀', 
-      level: 80 
+    reset({
+      name: '',
+      category: categories.length > 0 ? categories[0].name : '',
+      icon: '🚀'
     });
     setIsModalOpen(true);
   };
@@ -85,9 +89,24 @@ export default function SkillsManagement() {
       name: skill.name,
       category: skill.category,
       icon: skill.icon,
-      level: skill.level,
     });
     setIsModalOpen(true);
+  };
+
+  const handleIconUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadingIcon(true);
+      const url = await uploadFile('skills/icons', file);
+      setValue('icon', url, { shouldValidate: true });
+      toast.success('Icon uploaded');
+    } catch (error) {
+      toast.error('Icon upload failed');
+    } finally {
+      setUploadingIcon(false);
+    }
   };
 
   const handleOnSubmit = async (data: SkillFormData) => {
@@ -124,7 +143,7 @@ export default function SkillsManagement() {
     }
   };
 
-  const filteredSkills = skills.filter(s => 
+  const filteredSkills = skills.filter(s =>
     s.name.toLowerCase().includes(search.toLowerCase()) ||
     s.category.toLowerCase().includes(search.toLowerCase())
   );
@@ -189,16 +208,7 @@ export default function SkillsManagement() {
                         <button onClick={() => { setDeletingId(skill.id!); setIsDeleteOpen(true); }} className="p-1.5 text-slate-500 hover:text-red-400"><FiTrash2 size={14} /></button>
                       </div>
                     </div>
-                    
-                    <div className="space-y-1.5">
-                      <div className="flex justify-between text-[10px] font-mono text-text-secondary font-bold">
-                        <span>Level</span>
-                        <span>{skill.level}%</span>
-                      </div>
-                      <div className="h-1.5 bg-surface-dark rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-blue-600 to-blue-400" style={{ width: `${skill.level}%` }} />
-                      </div>
-                    </div>
+
                   </motion.div>
                 ))}
               </div>
@@ -229,13 +239,34 @@ export default function SkillsManagement() {
               {errors.name && <p className="text-red-500 text-xs mt-1 ml-1 font-bold">{errors.name.message}</p>}
             </div>
             <div>
-              <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1.5 ml-1 font-bold">Icon (Emoji/HTML)</label>
+              <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1.5 ml-1 font-bold">Icon</label>
               <input
                 {...register('icon')}
-                placeholder="e.g. 🚀"
+                value={iconValue}
+                onChange={(event) => setValue('icon', event.target.value, { shouldValidate: true })}
+                placeholder="Emoji, URL, or uploaded icon path"
                 className="w-full px-4 py-3 rounded-xl bg-background-card border border-surface-border text-text-primary focus:outline-none focus:border-brand-500/50 transition-all font-medium"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-text-muted text-xs font-mono uppercase tracking-wider mb-1.5 ml-1 font-bold">Upload Icon (SVG/PNG)</label>
+            <label className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-surface-border px-4 py-3 text-sm text-text-secondary transition hover:border-blue-500/40 hover:text-blue-400">
+              <FiUploadCloud />
+              <span>{uploadingIcon ? 'Uploading...' : 'Upload SVG / PNG icon'}</span>
+              <input type="file" accept=".svg,.png,.jpg,.jpeg,.webp,.ico,image/svg+xml,image/png,image/jpeg,image/webp,image/x-icon" className="hidden" onChange={handleIconUpload} />
+            </label>
+            {iconValue && (
+              <div className="mt-3 flex items-center gap-3 rounded-xl border border-surface-border bg-background-card/60 px-3 py-2 text-sm text-text-secondary">
+                {iconValue.startsWith('http') || iconValue.startsWith('/') || iconValue.startsWith('data:') ? (
+                  <img src={iconValue} alt="" className="h-6 w-6 object-contain" />
+                ) : (
+                  <span className="text-xl">{iconValue}</span>
+                )}
+                <span className="truncate">{iconValue}</span>
+              </div>
+            )}
           </div>
 
           <div>
@@ -259,20 +290,6 @@ export default function SkillsManagement() {
               </div>
             </div>
             {errors.category && <p className="text-red-500 text-xs mt-1 ml-1 font-bold">{errors.category.message}</p>}
-          </div>
-
-          <div>
-            <div className="flex justify-between items-center mb-1.5 ml-1">
-              <label className="block text-text-muted text-xs font-mono uppercase tracking-wider font-bold">Proficiency Level</label>
-              <span className="text-blue-600 dark:text-blue-400 font-mono text-xs font-bold">{levelValue}%</span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              {...register('level', { valueAsNumber: true })}
-              className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-brand-500 bg-slate-300 dark:bg-slate-700 border border-surface-border/30"
-            />
           </div>
 
           <div className="pt-4 flex gap-3">

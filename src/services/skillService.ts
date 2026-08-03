@@ -10,7 +10,6 @@ export const getSkills = async (): Promise<Skill[]> => {
     name: item.name,
     category: item.category,
     icon: item.icon,
-    level: item.level,
     createdAt: item.created_at
   }));
 };

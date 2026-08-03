@@ -26,7 +26,7 @@ export interface Skill {
   name: string;
   category: string; // Links to SkillCategory.name or ID
   icon: string;
-  level: number; // 0-100
+  isVisible?: boolean;
   createdAt?: Date | string;
 }
 

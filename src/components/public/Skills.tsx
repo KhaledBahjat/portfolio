@@ -1,44 +1,45 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { getSkills } from '@/services/skillService';
 import { getCategories } from '@/services/categoryService';
-import { Skill, SkillCategory } from '@/types';
+import { Skill } from '@/types';
 
-const defaultCategories = ['programming', 'frameworks', 'backend', 'databases', 'tools'];
-
-const colorMap: Record<string, { bar: string; badge: string; text: string }> = {
-  programming: { bar: 'from-blue-600 to-blue-400', badge: 'bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400', text: 'text-blue-700 dark:text-blue-400' },
-  frameworks: { bar: 'from-violet-600 to-violet-400', badge: 'bg-violet-500/10 border-violet-500/20 text-violet-700 dark:text-violet-400', text: 'text-violet-700 dark:text-violet-400' },
-  backend: { bar: 'from-cyan-600 to-cyan-400', badge: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-700 dark:text-cyan-400', text: 'text-cyan-700 dark:text-cyan-400' },
-  databases: { bar: 'from-emerald-600 to-emerald-400', badge: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-400', text: 'text-emerald-700 dark:text-emerald-400' },
-  tools: { bar: 'from-amber-600 to-amber-400', badge: 'bg-amber-500/10 border-amber-500/20 text-amber-700 dark:text-amber-400', text: 'text-amber-700 dark:text-amber-400' },
-  // Fallback map for common names
-  development: { bar: 'from-blue-600 to-blue-400', badge: 'bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400', text: 'text-blue-700 dark:text-blue-400' },
-  standard: { bar: 'from-indigo-600 to-indigo-400', badge: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-700 dark:text-indigo-400', text: 'text-indigo-700 dark:text-indigo-400' },
+const categoryMeta: Record<string, { badge: string; chip: string; glow: string; icon: string }> = {
+  Languages: { badge: 'bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400', chip: 'bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400 hover:border-blue-400/50 hover:shadow-[0_0_0_1px_rgba(96,165,250,0.25)]', glow: 'shadow-blue-500/10', icon: '⌘' },
+  Frameworks: { badge: 'bg-violet-500/10 border-violet-500/20 text-violet-700 dark:text-violet-400', chip: 'bg-violet-500/10 border-violet-500/20 text-violet-700 dark:text-violet-400 hover:border-violet-400/50 hover:shadow-[0_0_0_1px_rgba(167,139,250,0.25)]', glow: 'shadow-violet-500/10', icon: '⚛' },
+  Databases: { badge: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-400', chip: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-400 hover:border-emerald-400/50 hover:shadow-[0_0_0_1px_rgba(52,211,153,0.25)]', glow: 'shadow-emerald-500/10', icon: '◫' },
+  'Local Storage': { badge: 'bg-amber-500/10 border-amber-500/20 text-amber-700 dark:text-amber-400', chip: 'bg-amber-500/10 border-amber-500/20 text-amber-700 dark:text-amber-400 hover:border-amber-400/50 hover:shadow-[0_0_0_1px_rgba(251,191,36,0.25)]', glow: 'shadow-amber-500/10', icon: '⬢' },
+  Tools: { badge: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-700 dark:text-cyan-400', chip: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-700 dark:text-cyan-400 hover:border-cyan-400/50 hover:shadow-[0_0_0_1px_rgba(34,211,238,0.25)]', glow: 'shadow-cyan-500/10', icon: '✦' },
 };
 
-const defaultColors = { bar: 'from-slate-600 to-slate-400', badge: 'bg-slate-500/10 border-slate-500/20 text-slate-700 dark:text-slate-400', text: 'text-slate-700 dark:text-slate-400' };
+const defaultColors = { badge: 'bg-slate-500/10 border-slate-500/20 text-slate-700 dark:text-slate-400', chip: 'bg-slate-500/10 border-slate-500/20 text-slate-700 dark:text-slate-400 hover:border-slate-400/50 hover:shadow-[0_0_0_1px_rgba(148,163,184,0.25)]', glow: 'shadow-slate-500/10', icon: '•' };
+
+const normalizeCategory = (value: string) => {
+  const normalized = value?.toLowerCase() ?? '';
+  if (normalized.includes('lang') || normalized.includes('program') || normalized.includes('code')) return 'Languages';
+  if (normalized.includes('framework') || normalized.includes('frontend') || normalized.includes('ui')) return 'Frameworks';
+  if (normalized.includes('database') || normalized.includes('db') || normalized.includes('sql')) return 'Databases';
+  if (normalized.includes('local') || normalized.includes('storage') || normalized.includes('hive') || normalized.includes('shared')) return 'Local Storage';
+  return 'Tools';
+};
 
 export default function Skills() {
   const { t } = useLanguage();
   const [skills, setSkills] = useState<Skill[]>([]);
-  const [categories, setCategories] = useState<SkillCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: false, margin: '-100px' });
+  const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const [skillsData, categoriesData] = await Promise.all([
+        const [skillsData] = await Promise.all([
           getSkills(),
           getCategories()
         ]);
         setSkills(skillsData);
-        setCategories(categoriesData);
       } catch (error) {
         console.error('Failed to load data', error);
       } finally {
@@ -48,20 +49,24 @@ export default function Skills() {
     loadData();
   }, []);
 
-  const groupedSkills = skills.reduce((acc: Record<string, Skill[]>, skill) => {
-    const catName = skill.category;
+  const visibleSkills = skills.filter((skill) => skill.isVisible !== false);
+
+  const groupedSkills = visibleSkills.reduce((acc: Record<string, Skill[]>, skill) => {
+    const catName = normalizeCategory(skill.category || 'Tools');
     if (!acc[catName]) acc[catName] = [];
     acc[catName].push(skill);
     return acc;
   }, {});
 
-  // Sort categories by orderIndex if they exist in the categories list
-  const sortedCategories = [...categories].sort((a, b) => a.orderIndex - b.orderIndex);
-
-  // Also include categories that have skills but aren't in the official list
-  const extraCategoryNames = Object.keys(groupedSkills).filter(
-    name => !categories.some(c => c.name === name)
-  );
+  const orderedCategoryNames = Object.keys(groupedSkills).sort((a, b) => {
+    const order = ['Languages', 'Frameworks', 'Databases', 'Local Storage', 'Tools'];
+    const aIndex = order.indexOf(a);
+    const bIndex = order.indexOf(b);
+    if (aIndex === -1 && bIndex === -1) return a.localeCompare(b);
+    if (aIndex === -1) return 1;
+    if (bIndex === -1) return -1;
+    return aIndex - bIndex;
+  });
 
   return (
     <section id="skills" className="py-24 bg-surface-card/30" ref={ref}>
@@ -73,7 +78,7 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-brand-600 dark:text-brand-400 font-mono text-sm uppercase tracking-widest block mb-4">// 02. skills</span>
+          <span className="text-brand-600 dark:text-brand-400 font-mono text-sm uppercase tracking-widest block mb-4">{'// 02. skills'}</span>
           <h2 className="text-4xl md:text-5xl font-bold mt-2 text-text-primary tracking-tight">
             {t('skills.title')} <span className="gradient-text">{t('skills.subtitle')}</span>
           </h2>
@@ -87,122 +92,62 @@ export default function Skills() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.1 }
+              transition: { staggerChildren: 0.08 }
             }
           }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, margin: '-50px' }}
-          className="grid md:grid-cols-2 xl:grid-cols-3 gap-6"
+          className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
         >
           {isLoading ? (
-            [1, 2, 3].map((n) => (
-              <div key={n} className="glass rounded-2xl p-6 animate-shimmer">
-                <div className="w-24 h-6 bg-surface-loading rounded-full mb-6" />
-                <div className="space-y-6">
-                  {[1, 2, 3, 4].map((s) => (
-                    <div key={s}>
-                      <div className="flex justify-between mb-2">
-                        <div className="w-20 h-4 bg-surface-loading rounded" />
-                        <div className="w-8 h-4 bg-surface-loading rounded" />
-                      </div>
-                      <div className="h-1.5 bg-surface-loading rounded-full w-full" />
-                    </div>
+            [1, 2, 3, 4, 5].map((n) => (
+              <div key={n} className="glass rounded-2xl p-6 animate-shimmer border border-surface-border/70">
+                <div className="w-24 h-6 bg-surface-loading rounded-full mb-5" />
+                <div className="flex flex-wrap gap-2">
+                  {[1, 2, 3].map((s) => (
+                    <div key={s} className="h-9 w-20 bg-surface-loading rounded-full" />
                   ))}
                 </div>
               </div>
             ))
           ) : (
-            <>
-              {/* Official Categories */}
-              {sortedCategories.map((cat, catIdx) => {
-                const catSkills = groupedSkills[cat.name] || [];
-                if (catSkills.length === 0) return null;
+            orderedCategoryNames.map((catName) => {
+              const catSkills = groupedSkills[catName] || [];
+              if (catSkills.length === 0) return null;
 
-                const colors = colorMap[cat.name.toLowerCase()] || defaultColors;
+              const colors = categoryMeta[catName] || defaultColors;
 
-                return (
-                  <motion.div
-                    key={cat.id}
-                    variants={{
-                      hidden: { opacity: 0, y: 30 },
-                      visible: { opacity: 1, y: [30, -5, 0], transition: { duration: 0.6 } }
-                    }}
-                    whileHover={{ y: -5, borderColor: colors.badge.split('text-')[0].replace('bg-', '') + '40' }}
-                    className="glass rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 group border border-surface-border"
-                  >
-                    <div className={`inline-flex items-center gap-2 text-xs font-bold px-3 py-1 rounded-full border mb-5 ${colors.badge}`}>
-                      {cat.icon && <span>{cat.icon}</span>}
-                      {cat.name}
-                    </div>
-                    <div className="space-y-4">
-                      {catSkills.map((skill, i) => (
-                        <div key={skill.id}>
-                          <div className="flex justify-between mb-1.5">
-                            <div className="flex items-center gap-2">
-                              {skill.icon && <span className="text-base">{skill.icon}</span>}
-                              <span className="text-text-primary text-sm font-medium">{skill.name}</span>
-                            </div>
-                            <span className={`text-xs font-mono opacity-80 ${colors.text}`}>{skill.level}%</span>
-                          </div>
-                          <div className="h-1.5 bg-surface-border rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${skill.level}%` }}
-                              viewport={{ once: false }}
-                              transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: 'easeOut' }}
-                              className={`h-full rounded-full bg-gradient-to-r ${colors.bar}`}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                );
-              })}
+              return (
+                <motion.div
+                  key={catName}
+                  variants={{
+                    hidden: { opacity: 0, y: 24 },
+                    visible: { opacity: 1, y: [24, -4, 0], transition: { duration: 0.55 } }
+                  }}
+                  whileHover={{ y: -4, scale: 1.01, boxShadow: '0 24px 60px rgba(15, 23, 42, 0.16)' }}
+                  className={`glass rounded-2xl border p-6 transition-all duration-300 shadow-[0_12px_40px_rgba(15,23,42,0.08)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 ${colors.glow}`}
+                >
+                  <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] ${colors.badge}`}>
+                    <span className="text-sm leading-none">{colors.icon}</span>
+                    <span>{catName}</span>
+                  </div>
 
-              {/* Extra Categories (orphaned skills) */}
-              {extraCategoryNames.map((catName, idx) => {
-                const catSkills = groupedSkills[catName];
-                const colors = colorMap[catName.toLowerCase()] || defaultColors;
-                const offset = sortedCategories.length + idx;
-
-                return (
-                  <motion.div
-                    key={catName}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={inView ? { opacity: 1, y: [30, -5, 0] } : {}}
-                    transition={{ duration: 0.6, delay: offset * 0.1 }}
-                    className="glass rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/5 group"
-                  >
-                    <div className={`inline-block text-xs font-bold px-3 py-1 rounded-full border mb-5 ${colors.badge}`}>
-                      {catName}
-                    </div>
-                    <div className="space-y-4">
-                      {catSkills.map((skill, i) => (
-                        <div key={skill.id}>
-                          <div className="flex justify-between mb-1.5">
-                            <div className="flex items-center gap-2">
-                              {skill.icon && <span className="text-base">{skill.icon}</span>}
-                              <span className="text-text-primary text-sm font-medium">{skill.name}</span>
-                            </div>
-                            <span className={`text-xs font-mono opacity-80 ${colors.text}`}>{skill.level}%</span>
-                          </div>
-                          <div className="h-1.5 bg-surface-border rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
-                              transition={{ duration: 1, delay: offset * 0.1 + i * 0.1, ease: 'easeOut' }}
-                              className={`h-full rounded-full bg-gradient-to-r ${colors.bar}`}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {catSkills.map((skill) => (
+                      <motion.div
+                        key={skill.id}
+                        whileHover={{ y: -2, scale: 1.02 }}
+                        className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-medium transition-all duration-200 ${colors.chip}`}
+                      >
+                        <span className="text-base leading-none">{skill.icon}</span>
+                        <span>{skill.name}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })
           )}
         </motion.div>
       </div>
