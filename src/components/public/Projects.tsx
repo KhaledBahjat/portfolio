@@ -39,7 +39,7 @@ const getTechColor = (tech: string) => {
   if (t.includes('api') || t.includes('rest')) return 'from-violet-600/20 to-violet-400/20 text-violet-600 dark:text-violet-400 border-violet-500/30';
   if (t.includes('stripe') || t.includes('pay')) return 'from-purple-600/20 to-purple-400/20 text-purple-600 dark:text-purple-400 border-purple-500/30';
   if (t.includes('auth')) return 'from-rose-600/20 to-rose-400/20 text-rose-600 dark:text-rose-400 border-rose-500/30';
-  
+
   return 'from-slate-600/10 to-slate-400/10 text-text-secondary border-surface-border';
 };
 
@@ -78,13 +78,13 @@ function ProjectImageSlider({ project }: { project: Project }) {
   };
 
   return (
-    <div 
-      className="relative h-48 bg-gradient-to-br from-blue-900/50 to-violet-900/50 overflow-hidden group/slider"
+    <div
+      className="relative h-56 sm:h-64 md:h-72 bg-gradient-to-br from-blue-900/50 to-violet-900/50 overflow-hidden group/slider"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {images.length > 0 ? (
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full p-3 sm:p-4 md:p-5">
           <AnimatePresence initial={false}>
             <motion.div
               key={currentIndex}
@@ -92,23 +92,29 @@ function ProjectImageSlider({ project }: { project: Project }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0"
+              className="absolute inset-0 flex items-center justify-center p-3 sm:p-4 md:p-5"
             >
-              <Image src={images[currentIndex]} alt={`${project.title} - image ${currentIndex + 1}`} fill className="object-cover" />
+              <Image
+                src={images[currentIndex]}
+                alt={`${project.title} - image ${currentIndex + 1}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-contain"
+              />
             </motion.div>
           </AnimatePresence>
 
           {images.length > 1 && (
             <>
               {/* Navigation Arrows */}
-              <button 
+              <button
                 onClick={prevImage}
                 className="absolute left-2 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/50 backdrop-blur-sm text-white opacity-100 md:opacity-0 md:group-hover/slider:opacity-100 hover:bg-black/70 active:scale-95 transition-all z-20 shadow-md"
                 aria-label="Previous image"
               >
                 <FiChevronLeft size={24} />
               </button>
-              <button 
+              <button
                 onClick={nextImage}
                 className="absolute right-2 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/50 backdrop-blur-sm text-white opacity-100 md:opacity-0 md:group-hover/slider:opacity-100 hover:bg-black/70 active:scale-95 transition-all z-20 shadow-md"
                 aria-label="Next image"
@@ -122,9 +128,8 @@ function ProjectImageSlider({ project }: { project: Project }) {
                   <button
                     key={idx}
                     onClick={(e) => goToImage(e, idx)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      idx === currentIndex ? 'w-4 bg-blue-500' : 'w-1.5 bg-white/50 hover:bg-white/80 shadow-[0_0_2px_rgba(0,0,0,0.5)]'
-                    }`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-4 bg-blue-500' : 'w-1.5 bg-white/50 hover:bg-white/80 shadow-[0_0_2px_rgba(0,0,0,0.5)]'
+                      }`}
                     aria-label={`Go to image ${idx + 1}`}
                   />
                 ))}
@@ -137,19 +142,19 @@ function ProjectImageSlider({ project }: { project: Project }) {
           <span className="text-4xl">📱</span>
         </div>
       )}
-      
+
       {/* Overlay & Links */}
       <div className="absolute inset-0 bg-gradient-to-t from-surface-card/80 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity pointer-events-none" />
       <div className="absolute top-3 right-3 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity z-20">
         {project.githubUrl && (
           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-             className="p-2 sm:p-2.5 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 active:scale-95 transition-all pointer-events-auto flex items-center justify-center shadow-md">
+            className="p-2 sm:p-2.5 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 active:scale-95 transition-all pointer-events-auto flex items-center justify-center shadow-md">
             <FiGithub size={20} />
           </a>
         )}
         {project.demoUrl && (
           <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-             className="p-2 sm:p-2.5 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 active:scale-95 transition-all pointer-events-auto flex items-center justify-center shadow-md">
+            className="p-2 sm:p-2.5 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 active:scale-95 transition-all pointer-events-auto flex items-center justify-center shadow-md">
             <FiExternalLink size={20} />
           </a>
         )}
@@ -218,7 +223,7 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-blue-600 dark:text-blue-400 font-mono text-sm uppercase tracking-widest">// 03. projects</span>
+          <span className="text-blue-600 dark:text-blue-400 font-mono text-sm uppercase tracking-widest">{'// 03. projects'}</span>
           <h2 className="text-4xl font-bold mt-2 text-text-primary">
             {t('projects.title')} <span className="gradient-text">{t('projects.subtitle')}</span>
           </h2>
@@ -228,10 +233,10 @@ export default function Projects() {
         </motion.div>
 
         {/* Grid */}
-        <motion.div 
+        <motion.div
           variants={{
             hidden: { opacity: 0 },
-            visible: { 
+            visible: {
               opacity: 1,
               transition: { staggerChildren: 0.1 }
             }
@@ -243,44 +248,44 @@ export default function Projects() {
         >
           {loading
             ? Array.from({ length: 3 }).map((_, i) => <ProjectSkeleton key={i} />)
-            : projects.map((project, i) => (
-                <motion.div
-                  key={project.id}
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.95, y: 30 },
-                    visible: { opacity: 1, scale: 1, y: [30, -5, 0], transition: { duration: 0.6 } }
-                  }}
-                  whileHover={{ y: -8, borderColor: 'rgba(59, 130, 246, 0.4)' }}
-                  className="glass rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300 group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 border border-surface-border"
-                >
-                  {/* Image Slider */}
-                  <ProjectImageSlider project={project} />
+            : projects.map((project) => (
+              <motion.div
+                key={project.id}
+                variants={{
+                  hidden: { opacity: 0, scale: 0.95, y: 30 },
+                  visible: { opacity: 1, scale: 1, y: [30, -5, 0], transition: { duration: 0.6 } }
+                }}
+                whileHover={{ y: -8, borderColor: 'rgba(59, 130, 246, 0.4)' }}
+                className="glass rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300 group shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-xl dark:hover:shadow-blue-500/10 border border-surface-border"
+              >
+                {/* Image Slider */}
+                <ProjectImageSlider project={project} />
 
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-text-primary">{project.title}</h3>
-                      {project.featured && (
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/20 ml-2 shrink-0">
-                          {t('projects.featured')}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-3 font-medium">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className={`text-[10px] px-2.5 py-1 rounded-lg border bg-gradient-to-br font-bold shadow-sm flex items-center gap-1.5 ${getTechColor(tech)}`}
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-bold text-text-primary">{project.title}</h3>
+                    {project.featured && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/20 ml-2 shrink-0">
+                        {t('projects.featured')}
+                      </span>
+                    )}
                   </div>
-                </motion.div>
-              ))}
+                  <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-3 font-medium">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className={`text-[10px] px-2.5 py-1 rounded-lg border bg-gradient-to-br font-bold shadow-sm flex items-center gap-1.5 ${getTechColor(tech)}`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
         </motion.div>
 
         {projects.length === 0 && !loading && (
