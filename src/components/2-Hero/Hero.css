@@ -9,7 +9,7 @@ section.hero .left {
 }
 
 section.hero .left .icon-verified {
-    color: var(--blue);
+    color: var(--accent-alt);
 }
 
 section.hero .left .avatar {
@@ -19,7 +19,8 @@ section.hero .left .avatar {
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    box-shadow: 1px 1px 40px grey;
+    box-shadow: 0 18px 40px rgba(56, 189, 248, 0.2);
+    border: 2px solid rgba(129, 140, 248, 0.25);
 }
 
 section.hero h1.title {
@@ -44,7 +45,7 @@ section.hero .icons {
 section.hero .icon:hover {
     transition: all 0.3s ease;
     font-size: 1.4rem;
-    color: var(--title);
+    color: var(--accent);
     cursor: pointer;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;

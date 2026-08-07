@@ -18,12 +18,13 @@ main.flex section.left-sec.flex {
 }
 
 main.flex section.left-sec.flex button.active {
-    border: 1px solid var(--blue);
+    border: 1px solid var(--accent);
     color: var(--title);
+    background: var(--accent-soft);
 }
 
 main.flex section.left-sec.flex button {
-    background-color: rgba(36, 37, 46, 1);
+    background-color: rgba(15, 23, 42, 0.88);
     color: var(--subtitle);
     width: 11rem;
     padding: 0.7rem 0;
@@ -39,11 +40,13 @@ main.flex section.left-sec.flex button {
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
+    border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 main.flex section.left-sec.flex button:hover {
     color: var(--title);
     scale: 1.1;
+    border-color: var(--accent);
 }
 
 main.flex section.left-sec.flex button:active {
@@ -81,12 +84,12 @@ main.flex section.left-sec.flex button:active {
 }
 .card .box .details .icons .icon-github:hover, .card .icon-link:hover{
     font-size: 1.2rem;
-    color: var(--title);
+    color: var(--accent);
     cursor: pointer;
 }
 .card .btn-more-info{
     font-size: 0.9rem;
-    color: var(--blue);
+    color: var(--accent-alt);
     text-transform: lowercase;
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -96,11 +99,11 @@ main.flex section.left-sec.flex button:active {
     margin-right: 12px;
 }
 .card .btn-more-info:hover{
-    color: blue;
+    color: var(--accent);
 }
 
 .card{
-    border: 1px solid rgba(93, 188, 252, 0.3);
+    border: 1px solid rgba(129, 140, 248, 0.25);
     border-radius: 14px;
     -webkit-border-radius: 14px;
     -moz-border-radius: 14px;
@@ -111,7 +114,7 @@ main.flex section.left-sec.flex button:active {
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
-    background-image: linear-gradient(to right, rgb(39, 45, 107), rgba(29, 33, 63, 0.9));
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 0.9));
 }
 .card img{
     border-radius: 10px;
@@ -121,10 +124,11 @@ main.flex section.left-sec.flex button:active {
     -o-border-radius: 10px;
 }
 .card:hover{
-    border: 1px solid var(--blue);
+    border: 1px solid var(--accent);
     rotate: 1deg;
     scale: 1.01;
     cursor: pointer;
+    box-shadow: 0 16px 40px rgba(56, 189, 248, 0.16);
 }
 
 @media (max-width: 600px) {

@@ -26,11 +26,11 @@ header ul li a {
 header ul li a:hover {
     opacity: 1;
     font-size: 0.9rem;
-    color: var(--blue);
+    color: var(--accent);
 }
 
 header.flex nav {
-    box-shadow: 1px 1px 20px rgb(67, 57, 57);
+    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.2);
     background-color: var(--bgHeader);
     padding: 0.70rem 1.6rem;
     border-radius: 55px;
@@ -38,6 +38,7 @@ header.flex nav {
     -moz-border-radius: 55px;
     -ms-border-radius: 55px;
     -o-border-radius: 55px;
+    border: 1px solid var(--border);
 }
 
 header button.menu {
@@ -48,7 +49,7 @@ header button.menu {
 header .fixed {
     position: fixed;
     inset: 0;
-    background-color: rgba(40, 40, 48, 0.91);
+    background-color: rgba(2, 6, 23, 0.72);
     z-index: 11;
 }
 
@@ -77,7 +78,8 @@ header .fixed ul.model {
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
     padding: 1rem 2rem;
-    background-color: var(--secondary);
+    background: linear-gradient(135deg, var(--secondary), rgba(17, 24, 39, 0.96));
+    border: 1px solid var(--border);
     -webkit-animation: mymove 0.77s 1;
 }
 
@@ -97,6 +99,7 @@ header .fixed ul.model li a {
 
 header .fixed ul.model li a:hover {
     padding-left: 5px;
+    color: var(--accent);
 }
 
 header .fixed ul.model li:first-child {
@@ -109,7 +112,7 @@ header button.mood, header .icon-menu{
     justify-content: center;
     text-align: center;
     align-items: center;
-    border: 1px solid rgba(244, 165, 96, 0.249);
+    border: 1px solid var(--border);
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -125,7 +128,7 @@ header button.mood, header .icon-menu{
 header button.mood:hover,
 header button.icon-menu:hover {
     color: var(--title);
-    border: 1px solid rgba(244, 165, 96);
+    border: 1px solid var(--accent);
     cursor: pointer;
 }
 @media (max-width:700px) {

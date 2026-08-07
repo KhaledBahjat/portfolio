@@ -8,7 +8,7 @@ export default function Contact() {
                 Contact Us</h2>
             <p className='sub-title'>Contact us for any inquiries or support you may need.</p>
             <div className="flex ">
-                <form action="" className='border'>
+                <form action="" className=''>
                     <div className='flex'>
                         <label htmlFor="email">Email Adress</label>
                         <input type="email" id='email' required/>

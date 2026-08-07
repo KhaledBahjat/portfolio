@@ -1,5 +1,5 @@
 .contact .icon-envelope{
-    color: var(--subtitle);
+    color: var(--accent-alt);
     margin-right: 1rem;
     font-size: 1.8rem;
 }
@@ -18,38 +18,40 @@ section.contact label{
 }
 #email , #message{
     all: unset;
-    background-color: rgba(63, 63, 70, 0.15);
-    border: 1px solid rgb(63, 63, 70);
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.3);
     width: 16rem;
     padding: 0.5rem 1rem;
     margin-left: 1rem;
     border-radius: 5px;
     transition: 0.3s all ease;
     font-size: 1.1rem;
+    color: var(--title);
 }
 #message{
     min-height: 9rem;
     resize: vertical;
 }
 #email:focus , #message:focus{
-    border: 1px solid rgb(65 212 191);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
 }
 #email:hover , #message:hover{
-    border: 1px solid rgb(65 212 191);
+    border: 1px solid var(--accent-strong);
 }
 section.contact button{
-        background-color: rgba(36, 37, 46, 1);
-    color: var(--subtitle);
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #fff;
     padding:0.75rem 2rem;
     text-align: center;
     text-transform: capitalize;
     border-radius: 15px;
     transition: all 0.3s ease;
     margin-top: 1.8rem;
-    border:1px solid rgb(175, 172, 172);
+    border: none;
 }
 section.contact button:hover{
-    scale: 0.97;
+    scale: 1.02;
 }
 
 @media (max-width:600px) {

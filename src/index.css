@@ -14,27 +14,41 @@ html {
 }
 
 :root {
-  --primary: #000;
-  --secondary:rgb(24 24 27);
-  --border:rgba(63,63,70,0.4);
-  --title:rgb(244 244 245);
-  --subtitle:rgb(161 161 170);
-  --bgHeader:rgb(39,39,42);
-  --blue:rgb(93,188,252);
+  --primary: #07111f;
+  --secondary: #0f172a;
+  --surface: rgba(15, 23, 42, 0.95);
+  --border: rgba(148, 163, 184, 0.24);
+  --title: #f8fafc;
+  --subtitle: #94a3b8;
+  --bgHeader: #111827;
+  --accent: #38bdf8;
+  --accent-strong: #818cf8;
+  --accent-alt: #34d399;
+  --accent-soft: rgba(56, 189, 248, 0.16);
 }
 .light {
-  --primary: #fff;
+  --primary: #f8fafc;
+  --secondary: #ffffff;
+  --surface: rgba(255, 255, 255, 0.95);
+  --border: rgba(15, 23, 42, 0.12);
+  --title: #0f172a;
+  --subtitle: #475569;
+  --bgHeader: #eef2ff;
+  --accent: #2563eb;
+  --accent-strong: #7c3aed;
+  --accent-alt: #0f766e;
 }
 .dvider{
   border-bottom: 1px var(--border) solid;
   margin: 3rem 0;
 }
 .border{
-  border: red solid 2px;
+  border: 1px solid var(--accent);
 }
 body {
-  background-color: var(--primary);
-  color: #fff;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--title);
+  min-height: 100vh;
 }
 ul{
   list-style: none;
@@ -47,12 +61,13 @@ a{
   display: flex;
 }
 .container {
-  border: var(--border);
+  border: 1px solid var(--border);
   width: 85%;
   margin-left: auto;
   margin-right: auto;
-  background-color: var(--secondary);
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(17, 24, 39, 0.98) 100%);
   padding: 0 3rem;
+  box-shadow: 0 20px 60px rgba(2, 6, 23, 0.25);
 }
 
 button{
