@@ -9,6 +9,7 @@ function App() {
     <div className="container">
       <Header />
       <Hero />
+      <div className="dvider"></div>
       <Main />
       <div className="dvider"></div>
       <Contact />

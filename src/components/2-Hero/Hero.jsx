@@ -17,7 +17,7 @@ export default function Hero() {
                 <div className="icons flex">
                     <div className="icon icon-linkedin-square"></div>
                     <div className="icon icon-github"></div>
-                    <div className="icon icon-codeforces"></div>
+                    <div className="icon icon-code"></div>
                     <div className="icon icon-envelope"></div>
                 </div>
             </div>

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?x5i4rz');
-  src:  url('fonts/icomoon.eot?x5i4rz#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?x5i4rz') format('truetype'),
-    url('fonts/icomoon.woff?x5i4rz') format('woff'),
-    url('fonts/icomoon.svg?x5i4rz#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?b7d0zg');
+  src:  url('fonts/icomoon.eot?b7d0zg#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?b7d0zg') format('truetype'),
+    url('fonts/icomoon.woff?b7d0zg') format('woff'),
+    url('fonts/icomoon.svg?b7d0zg#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,21 +25,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-codeforces:before {
-  content: "\e903";
-  color: #1f8acb;
-}
 .icon-envelope:before {
   content: "\e902";
 }
 .icon-cancel:before {
   content: "\e900";
 }
+.icon-code:before {
+  content: "\e905";
+}
 .icon-verified:before {
   content: "\e904";
 }
 .icon-menu:before {
   content: "\e901";
+}
+.icon-link:before {
+  content: "\e903";
 }
 .icon-linkedin-square:before {
   content: "\f08c";
