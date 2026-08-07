@@ -1,24 +1,26 @@
 import React from 'react'
-import "./Contact"
+import "./Contact.css"
 export default function Contact() {
     return (
-        <div className='contact' id='contact'>
+        <section className='contact ' id='contact'>
             <h2 className='title'>
                 <span className='icon-envelope'></span>
-                Contact
-            </h2>
-            <p className='sub-title'>
-
-            </p>
-
-            <section className="left-sec flex">
-                <form action="" className='flex'>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id='email' />
-                    <label htmlFor="message">Message</label>
-                    <textarea name="" id="message"></textarea>
+                Contact Us</h2>
+            <p className='sub-title'>Contact us for any inquiries or support you may need.</p>
+            <div className="flex ">
+                <form action="" className='border'>
+                    <div className='flex'>
+                        <label htmlFor="email">Email Adress</label>
+                        <input type="email" id='email' required/>
+                    </div>
+                    <div className='flex' style={{ marginTop: '24px' }}>
+                        <label htmlFor="message">your message</label>
+                        <textarea name="" id="message" required></textarea>
+                    </div>
+                    <button>Submit</button>
                 </form>
-            </section>
-        </div>
+                <div className="anim ">anim</div>
+            </div>
+        </section>
     )
 }
